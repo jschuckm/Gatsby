@@ -1,5 +1,45 @@
 #Java files
 *.class
 
-#Spring Boot files
-*.jar
+#Eclipse
+*/.project
+*/.classpath
+*/.settings/
+blog/bin/
+*/.tern-project
+*/.metadata/
+local.properties
+
+#Spring Boot gitignore
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
