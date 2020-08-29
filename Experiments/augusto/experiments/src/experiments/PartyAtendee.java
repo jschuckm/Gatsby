@@ -5,6 +5,7 @@ import java.util.ArrayList;
  * The party attendee will have a payment status (if they paid for the party and can enter), a rating, friends
  * This is just a test file in the experiments directory
  */
+
 public class PartyAtendee {
 	private boolean payStatus;
 	private float rating;
@@ -40,5 +41,10 @@ public class PartyAtendee {
 	
 	public boolean addFriend(PartyAtendee newFriend) {
 		return friends.add(newFriend);
+	}
+	
+	public static void main(String [] args) {
+		PartyAtendee user = new PartyAtendee();
+		System.out.println(user.payStatus);
 	}
 }
