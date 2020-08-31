@@ -16,7 +16,7 @@
 
 	<properties>
 		<java.version>11</java.version>
-		<start-class>com.example.demo.ExperimentSpringBootApplication</start-class>
+		<start-class>com.example.demo.Test2</start-class>
 	</properties>
 
 	<dependencies>

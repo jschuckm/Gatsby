@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
-public class ExperimentSpringBootApplication {
+class ExperimentSpringBootApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ExperimentSpringBootApplication.class, args);
 	}
@@ -14,9 +14,9 @@ public class ExperimentSpringBootApplication {
 }
 
 @RestController 
-class HelloGbController { 
+class HelloASController { 
 @GetMapping 
-   public String helloGb() { 
-   return "Gaurav Bytes says, \"Hello There!!!\""; 
+   public String helloAS() { 
+   return "Augusto Savaris says, \"Hello There!!!\""; 
    } 
 }
