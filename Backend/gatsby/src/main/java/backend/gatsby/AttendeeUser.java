@@ -26,11 +26,12 @@ public class AttendeeUser {
 	@Column
 	private String address;
 	
-	@Column
-	private ArrayList<Party> partyHistory;
-	
 	public String getName() {
 		return name;
+	}
+	
+	public String getEmail() {
+		return email;
 	}
 	
 	public int getAge() {
@@ -45,15 +46,19 @@ public class AttendeeUser {
 		return address;
 	}
 	
-	public ArrayList<Party> getPartyHistory(){
-		return partyHistory;
-	}
-	
 	public void setName(String newName) {
 		name = newName;
 	}
 	
 	public void setAge(int newAge) {
 		age = newAge;
+	}
+	
+	public void setEmail(String newEmail) {
+		email = newEmail;
+	}
+	
+	public void setAddress(String newAddress) {
+		address = newAddress;
 	}
 }
