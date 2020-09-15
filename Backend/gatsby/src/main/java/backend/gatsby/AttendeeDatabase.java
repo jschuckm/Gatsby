@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @Repository
 public interface AttendeeDatabase extends JpaRepository<AttendeeUser, Integer> {
-	AttendeeUser findOne(@PathVariable Integer id);
+	//AttendeeUser findOne(@PathVariable Integer id);
 	
 }

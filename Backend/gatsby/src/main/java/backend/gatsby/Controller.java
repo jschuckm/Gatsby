@@ -20,7 +20,7 @@ public class Controller {
 	
 	@GetMapping("/attendee/{id}")
 	AttendeeUser getUser(@PathVariable Integer id) {
-		return db.findOne(id);
+		return db.findById(id).get();
 	}
 	
 	@RequestMapping("/attendees")
@@ -36,34 +36,35 @@ public class Controller {
 	
 	@PutMapping("/attendee/{id}")
 	AttendeeUser updateUserName(@RequestBody AttendeeUser a, @PathVariable Integer id) {
-		AttendeeUser oldA = db.findOne(id);
+		AttendeeUser oldA = db.findById(id).get();
 		oldA.setName(a.getName());
 		db.save(oldA);
 		return oldA;
 	}
 	
-	@PutMapping("/attendee/{id}")
 	AttendeeUser updateUserAddress(@RequestBody AttendeeUser a, @PathVariable Integer id) {
-		AttendeeUser oldA = db.findOne(id);
+		AttendeeUser oldA = db.findById(id).get();
 		oldA.setName(a.getAddress());
 		db.save(oldA);
 		return oldA;
 	}
 	
-	@PutMapping("/attendee/{id}")
 	AttendeeUser updateUserEmail(@RequestBody AttendeeUser a, @PathVariable Integer id) {
-		AttendeeUser oldA = db.findOne(id);
+		AttendeeUser oldA = db.findById(id).get();
 		oldA.setName(a.getEmail());
 		db.save(oldA);
 		return oldA;
 	}
 	
-	@PutMapping("/attendee/{id}")
 	AttendeeUser updateUserAge(@RequestBody AttendeeUser a, @PathVariable Integer id) {
-		AttendeeUser oldA = db.findOne(id);
+		AttendeeUser oldA = db.findById(id).get();
 		oldA.setAge(a.getAge());
 		db.save(oldA);
 		return oldA;
+	}
+	
+	AttendeeUser findOne(@PathVariable Integer id) {
+		return db.findById(id).get();
 	}
 	
 }
