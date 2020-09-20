@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
                 RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
                 try {
-                    String url ="http://coms-309-mc-07.cs.iastate.edu:8080/attendee/1";
+                    String url ="http://coms-309-mc-07.cs.iastate.edu:80/attendee/1";
                     JSONObject object = new JSONObject();
 
                     Editable name = Name.getText();
@@ -103,12 +103,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 System.out.println("click");
-                Name.setText("Constantine ");
+
                 // Instantiate the RequestQueue.
 
                 RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
                 try {
-                    String url ="http://coms-309-mc-07.cs.iastate.edu:8080/attendees";
+                    String url ="http://coms-309-mc-07.cs.iastate.edu:80/attendees";
                     JSONObject object = new JSONObject();
                     JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
                         @Override
