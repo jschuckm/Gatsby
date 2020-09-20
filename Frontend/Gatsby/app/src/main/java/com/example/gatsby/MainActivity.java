@@ -1,149 +1,55 @@
 package com.example.gatsby;
 
 import android.os.Bundle;
+import android.view.View;
+import android.view.Menu;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.navigation.NavigationView;
 
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.text.Editable;
-import android.view.View;
-
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.EditText;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.text.BreakIterator;
-
 public class MainActivity extends AppCompatActivity {
-    EditText Age;
-    EditText Email;
-    EditText Name;
-    EditText Rating;
-    EditText Location;
+
+    private AppBarConfiguration mAppBarConfiguration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        System.out.println("Something");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        // Passing each menu ID as a set of Ids because each
+        // menu should be considered as top level destinations.
+        mAppBarConfiguration = new AppBarConfiguration.Builder(
+                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_user_info)
+                .setDrawerLayout(drawer)
+                .build();
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
+        NavigationUI.setupWithNavController(navigationView, navController);
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
 
-        Age = (EditText) findViewById(R.id.Age);
-        Name = (EditText) findViewById(R.id.Name);
-        Location = (EditText) findViewById(R.id.Location);
-        Email = (EditText) findViewById(R.id.Email);
-        Rating = (EditText) findViewById(R.id.Rating);
-        Button Update = (Button) findViewById(R.id.Update);
-
-        Update.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                System.out.println("click");
-
-                // Instantiate the RequestQueue.
-
-                RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-                try {
-                    String url ="http://coms-309-mc-07.cs.iastate.edu:80/attendee/1";
-                    JSONObject object = new JSONObject();
-
-                    Editable name = Name.getText();
-                    Editable age = Age.getText();
-                    Editable location = Location.getText();
-                    Editable email = Email.getText();
-                    Editable rating = Rating.getText();
-                    JSONObject temp = new JSONObject(" { \"name\":"+name+", \"age\": "+age+", \"rating\":"+rating+", \"email\": "+email+", \"address\": "+location+" }");
-                    JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url, temp, new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            System.out.println("Works");
-
-
-                        }
-                    }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            System.out.println(error);
-                            System.out.println("OTHER ERROR");
-                        }
-                    });
-                    requestQueue.add(jsonObjectRequest);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-        });
-
-        Button Post = (Button) findViewById(R.id.Post);
-        Post.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-
-        Button Get = (Button) findViewById(R.id.Get);
-        Get.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                System.out.println("click");
-
-                // Instantiate the RequestQueue.
-
-                RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-                try {
-                    String url ="http://coms-309-mc-07.cs.iastate.edu:80/attendees";
-                    JSONObject object = new JSONObject();
-                    JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
-                        @Override
-                        public void onResponse(JSONArray response) {
-                            try {
-                                JSONArray jsonArray = new JSONArray(response.toString());
-                                jsonArray.getJSONObject(0);
-                                JSONObject first = jsonArray.getJSONObject(0);
-
-                                Name.setText(first.get("name").toString());
-                                Age.setText(first.get("age").toString());
-                                Location.setText(first.get("address").toString());
-                                Email.setText(first.get("email").toString());
-                                Rating.setText(first.get("rating").toString());
-                            }
-                            catch(Exception e){
-                                System.out.println(e);
-                                System.out.println("ERROR");
-                            }
-
-
-
-                        }
-                    }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                           System.out.println(error);
-                            System.out.println("OTHER ERROR");
-                        }
-                    });
-                    requestQueue.add(jsonArrayRequest);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-    });
+    @Override
+    public boolean onSupportNavigateUp() {
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        return NavigationUI.navigateUp(navController, mAppBarConfiguration)
+                || super.onSupportNavigateUp();
     }
 }
