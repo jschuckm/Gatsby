@@ -20,16 +20,13 @@ public class Controller {
 	
 	@RequestMapping("/attendee/{id}")
 	AttendeeUser getUser(@PathVariable Integer id) {
-		System.out.println(id);
 		AttendeeUser result = db.findById(id).get();
-		System.out.println(result);
 		return result;
 	}
 	
 	@RequestMapping("/attendees")
 	List<AttendeeUser> getAll()
 	{
-		System.out.println("hello");
 		return db.findAll();
 	}
 	
