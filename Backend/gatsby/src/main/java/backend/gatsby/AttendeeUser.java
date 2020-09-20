@@ -61,4 +61,8 @@ public class AttendeeUser {
 	public void setAddress(String newAddress) {
 		address = newAddress;
 	}
+
+	public void setRating(Double newRating) {
+		rating = newRating;
+	}
 }

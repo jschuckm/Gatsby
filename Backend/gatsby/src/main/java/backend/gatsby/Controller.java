@@ -18,13 +18,18 @@ public class Controller {
 	@Autowired
 	AttendeeDatabase db;
 	
-	@GetMapping("/attendee/{id}")
+	@RequestMapping("/attendee/{id}")
 	AttendeeUser getUser(@PathVariable Integer id) {
-		return db.findById(id).get();
+		System.out.println(id);
+		AttendeeUser result = db.findById(id).get();
+		System.out.println(result);
+		return result;
 	}
 	
 	@RequestMapping("/attendees")
-	List<AttendeeUser> getAll(){
+	List<AttendeeUser> getAll()
+	{
+		System.out.println("hello");
 		return db.findAll();
 	}
 	
@@ -38,31 +43,13 @@ public class Controller {
 	AttendeeUser updateUserName(@RequestBody AttendeeUser a, @PathVariable Integer id) {
 		AttendeeUser oldA = db.findById(id).get();
 		oldA.setName(a.getName());
-		db.save(oldA);
-		return oldA;
-	}
-	
-	AttendeeUser updateUserAddress(@RequestBody AttendeeUser a, @PathVariable Integer id) {
-		AttendeeUser oldA = db.findById(id).get();
-		oldA.setName(a.getAddress());
-		db.save(oldA);
-		return oldA;
-	}
-	
-	AttendeeUser updateUserEmail(@RequestBody AttendeeUser a, @PathVariable Integer id) {
-		AttendeeUser oldA = db.findById(id).get();
-		oldA.setName(a.getEmail());
-		db.save(oldA);
-		return oldA;
-	}
-	
-	AttendeeUser updateUserAge(@RequestBody AttendeeUser a, @PathVariable Integer id) {
-		AttendeeUser oldA = db.findById(id).get();
 		oldA.setAge(a.getAge());
+		oldA.setAddress(a.getAddress());
+		oldA.setEmail(a.getEmail());
+		oldA.setRating(a.getRating());
 		db.save(oldA);
 		return oldA;
 	}
-	
 	AttendeeUser findOne(@PathVariable Integer id) {
 		return db.findById(id).get();
 	}
