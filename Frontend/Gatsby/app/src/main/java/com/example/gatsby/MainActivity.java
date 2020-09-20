@@ -2,6 +2,13 @@ package com.example.gatsby;
 
 import android.os.Bundle;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -12,45 +19,78 @@ import android.view.View;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.EditText;
+
+import org.json.JSONObject;
+
+import java.text.BreakIterator;
 
 public class MainActivity extends AppCompatActivity {
+    EditText Age;
+    EditText Email;
+    EditText Name;
+    EditText Rating;
+    EditText Location;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        System.out.println("Something");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
 
+        Age = (EditText) findViewById(R.id.Age);
+        Name = (EditText) findViewById(R.id.Name);
+        Location = (EditText) findViewById(R.id.Location);
+        Email = (EditText) findViewById(R.id.Email);
+        Rating = (EditText) findViewById(R.id.Rating);
+        Button Update = (Button) findViewById(R.id.Update);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        Update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+
             }
         });
-    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
+        Button Post = (Button) findViewById(R.id.Post);
+        Post.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+            }
+        });
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+        Button Get = (Button) findViewById(R.id.Get);
+        Get.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println("click");
+                Name.setText("Constantine ");
+                // Instantiate the RequestQueue.
 
-        return super.onOptionsItemSelected(item);
+                RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+                try {
+                    String url ="http://coms-309-mc-07.cs.iastate.edu:8080/attendees";
+                    JSONObject object = new JSONObject();
+                    JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            Name.setText("Resposne : " + response.toString());
+
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                           System.out.println(error);
+                        }
+                    });
+                    requestQueue.add(jsonObjectRequest);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+    });
     }
 }
