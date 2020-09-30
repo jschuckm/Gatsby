@@ -2,6 +2,8 @@ stages:
   - mavenbuild
   - maventest
   - autodeploy
+  - android-build
+  - unitTests
   
 maven-build:
     stage: mavenbuild
@@ -34,3 +36,28 @@ autoDeploy:
     - sudo mv target/*.jar /target/gatsby.jar
     - sudo systemctl stop gatsby
     - sudo systemctl start gatsby
+android-build:    
+    image: javiersantos/android-ci:latest
+    stage: androidbuild    
+    before_script:        
+        - export GRADLE_USER_HOME='pwd'/.gradle        
+        - chmod +x ./Frontend/Gatsby/gradlew    
+    tags:        
+        - FRONTEND    
+    script:        
+        - cd Frontend/Gatsby/
+        - ./gradlew assemble
+    artifacts:
+        paths:
+            - Frontend/Gatsby/app/build/outputs/
+unitTests:
+    image: javiersantos/android-ci:latest    
+    stage: androidtest    
+    before_script:        
+        - export GRADLE_USER_HOME='pwd'/.gradle
+        - chmod +x ./Frontend/Gatsby/gradlew
+    tags:        
+        - FRONTEND    
+    script:        
+        - cd Frontend/Gatsby/
+        - ./gradlew assemble        
