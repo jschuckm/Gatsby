@@ -2,8 +2,8 @@ stages:
   - mavenbuild
   - maventest
   - autodeploy
-  - android-build
-  - unitTests
+  - androidbuild
+  - androidtest
   
 maven-build:
     stage: mavenbuild
