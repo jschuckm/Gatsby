@@ -38,7 +38,7 @@ public class Controller {
 	}
 	
 	@PutMapping("/attendee/{id}")
-	AttendeeUser updateUserName(@RequestBody AttendeeUser a, @PathVariable Integer id) {
+	AttendeeUser updateUser(@RequestBody AttendeeUser a, @PathVariable Integer id) {
 		AttendeeUser oldA = db.findById(id).get();
 		oldA.setName(a.getName());
 		oldA.setAge(a.getAge());
