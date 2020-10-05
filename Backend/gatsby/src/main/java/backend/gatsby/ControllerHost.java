@@ -1,7 +1,6 @@
 package backend.gatsby;
 
 import java.util.List;
-
 import org.springframework.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,48 +13,44 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
-public class Controller {
-
+public class ControllerHost {
 	@Autowired
-	AttendeeDatabase db;
+	HostDatabase db;
 	
-	@RequestMapping("/attendee/{id}")
-	AttendeeUser getUser(@PathVariable Integer id) {
-		AttendeeUser result = db.findById(id).get();
+	@RequestMapping("/host/{id}")
+	HostUser getHost(@PathVariable Integer id) {
+		HostUser result = db.findById(id).get();
 		return result;
 	}
 	
-	@RequestMapping("/attendees")
-	List<AttendeeUser> getAll()
+	@RequestMapping("/hosts")
+	List<HostUser> getAll()
 	{
 		return db.findAll();
 	}
 	
-	@PostMapping("/attendee")
-	AttendeeUser createUser(@RequestBody AttendeeUser a) {
-		db.save(a);
-		return a;
+	@PostMapping("/host")
+	HostUser createHost(@RequestBody HostUser h) {
+		db.save(h);
+		return h;
 	}
 	
-	@PutMapping("/attendee/{id}")
-	AttendeeUser updateUser(@RequestBody AttendeeUser a, @PathVariable Integer id) {
-		AttendeeUser oldA = db.findById(id).get();
-		oldA.setName(a.getName());
-		oldA.setAge(a.getAge());
-		oldA.setAddress(a.getAddress());
-		oldA.setEmail(a.getEmail());
-		oldA.setRating(a.getRating());
-		db.save(oldA);
-		return oldA;
+	@PutMapping("/host/{id}")
+	HostUser updateUser(@RequestBody HostUser h, @PathVariable Integer id) {
+		HostUser oldH = db.findById(id).get();
+		oldH.setName(h.getName());
+		oldH.setAge(h.getAge());
+		oldH.setAddress(h.getAddress());
+		oldH.setEmail(h.getEmail());
+		oldH.setRating(h.getRating());
+		db.save(oldH);
+		return oldH;
 	}
 	
-	AttendeeUser findOne(@PathVariable Integer id) {
-		return db.findById(id).get();
-	}
-	
-	@DeleteMapping("/attendee/{id}")
+	@DeleteMapping("/host/{id}")
 	String deleteUser(@PathVariable Integer id) {
 		db.delete(db.findById(id).get());
 		return "Deleted " + id;
 	}
+
 }

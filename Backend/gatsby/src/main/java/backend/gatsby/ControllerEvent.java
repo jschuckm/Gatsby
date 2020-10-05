@@ -1,7 +1,6 @@
 package backend.gatsby;
 
 import java.util.List;
-
 import org.springframework.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,48 +13,45 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
-public class Controller {
-
+public class ControllerEvent {
 	@Autowired
-	AttendeeDatabase db;
+	EventDatabase db;
 	
-	@RequestMapping("/attendee/{id}")
-	AttendeeUser getUser(@PathVariable Integer id) {
-		AttendeeUser result = db.findById(id).get();
+	@RequestMapping("/event/{id}")
+	Event getEvent(@PathVariable Integer id) {
+		Event result = db.findById(id).get();
 		return result;
 	}
 	
-	@RequestMapping("/attendees")
-	List<AttendeeUser> getAll()
+	@RequestMapping("/events")
+	List<Event> getAll()
 	{
 		return db.findAll();
 	}
 	
-	@PostMapping("/attendee")
-	AttendeeUser createUser(@RequestBody AttendeeUser a) {
-		db.save(a);
-		return a;
+	@PostMapping("/event")
+	Event createHost(@RequestBody Event e) {
+		db.save(e);
+		return e;
 	}
 	
-	@PutMapping("/attendee/{id}")
-	AttendeeUser updateUser(@RequestBody AttendeeUser a, @PathVariable Integer id) {
-		AttendeeUser oldA = db.findById(id).get();
-		oldA.setName(a.getName());
-		oldA.setAge(a.getAge());
-		oldA.setAddress(a.getAddress());
-		oldA.setEmail(a.getEmail());
-		oldA.setRating(a.getRating());
-		db.save(oldA);
-		return oldA;
+	@PutMapping("/event/{id}")
+	Event updateUser(@RequestBody Event e, @PathVariable Integer id) {
+		Event oldE = db.findById(id).get();
+		oldE.setName(e.getName());
+		oldE.setAddress(e.getAddress());
+		oldE.setCapacity(e.getCapacity());
+		oldE.setDate(e.getDate());
+		oldE.setFee(e.getFee());
+		oldE.setIsPublic(e.getIsPublic());
+		db.save(oldE);
+		return oldE;
 	}
 	
-	AttendeeUser findOne(@PathVariable Integer id) {
-		return db.findById(id).get();
-	}
-	
-	@DeleteMapping("/attendee/{id}")
+	@DeleteMapping("/event/{id}")
 	String deleteUser(@PathVariable Integer id) {
 		db.delete(db.findById(id).get());
 		return "Deleted " + id;
 	}
+
 }
