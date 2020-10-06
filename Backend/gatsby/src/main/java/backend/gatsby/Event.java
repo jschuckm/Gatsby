@@ -1,11 +1,18 @@
 package backend.gatsby;
 
 import java.util.ArrayList;
+
 import java.util.Date;
 
 import javax.persistence.*;
 
+@Table(name = "event")
+@Entity
 public class Event {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	Integer id;
 
 	@Column
 	private String name;
@@ -17,14 +24,14 @@ public class Event {
 	private Date date;
 	
 	//many to many relation: one event has many attendees and the users can attend many events
-	@Column
-	private ArrayList<AttendeeUser> attendeesList;
+	//@Column
+	//private ArrayList<AttendeeUser> attendeesList;
 	
 	@Column
 	private float fee;
 	
-	@Column
-	private HostUser hostProfile;
+	//@Column
+	//private HostUser hostProfile;
 	
 	@Column
 	private String address;

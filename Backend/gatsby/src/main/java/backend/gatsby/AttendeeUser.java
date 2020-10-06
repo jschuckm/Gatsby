@@ -3,6 +3,7 @@ package backend.gatsby;
 import java.util.ArrayList;
 import javax.persistence.*;
 
+@Table(name = "attendee")
 @Entity
 public class AttendeeUser {
 	//first, define all of the fields that belong to this user

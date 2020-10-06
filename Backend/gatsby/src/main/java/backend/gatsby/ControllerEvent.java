@@ -30,13 +30,13 @@ public class ControllerEvent {
 	}
 	
 	@PostMapping("/event")
-	Event createHost(@RequestBody Event e) {
+	Event createEvent(@RequestBody Event e) {
 		db.save(e);
 		return e;
 	}
 	
 	@PutMapping("/event/{id}")
-	Event updateUser(@RequestBody Event e, @PathVariable Integer id) {
+	Event updateEvent(@RequestBody Event e, @PathVariable Integer id) {
 		Event oldE = db.findById(id).get();
 		oldE.setName(e.getName());
 		oldE.setAddress(e.getAddress());
@@ -49,7 +49,7 @@ public class ControllerEvent {
 	}
 	
 	@DeleteMapping("/event/{id}")
-	String deleteUser(@PathVariable Integer id) {
+	String deleteEvent(@PathVariable Integer id) {
 		db.delete(db.findById(id).get());
 		return "Deleted " + id;
 	}

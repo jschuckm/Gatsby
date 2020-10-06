@@ -5,6 +5,8 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+@Table(name = "host")
+@Entity
 public class HostUser {
 
 	@Id
@@ -27,8 +29,8 @@ public class HostUser {
 	private String address;
 	
 	//one to many relation: one host can have multiple events, but an event only has one hosts
-	@Column
-	private ArrayList<Event> eventsHostedHistory;
+	//@Column
+	//private ArrayList<Event> eventsHostedHistory;
 	
 	//define set and get methods for the controller to access the columns
 	public String getName() {
