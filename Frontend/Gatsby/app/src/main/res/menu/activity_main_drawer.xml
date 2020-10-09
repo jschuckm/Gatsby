@@ -20,5 +20,9 @@
             android:id="@+id/nav_user_info"
             android:icon="@drawable/ic_menu_slideshow"
             android:title = "User Info" />
+        <item
+            android:id="@+id/nav_signup"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title = "Signup" />
     </group>
 </menu>
