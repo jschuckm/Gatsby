@@ -25,7 +25,7 @@ public class ControllerEvent {
 	@RequestMapping("/events")
 	List<Event> getAll()
 	{
-		return db.findAll();
+		return (List<Event>) db.findAll();
 	}
 	
 	@PostMapping("/event")

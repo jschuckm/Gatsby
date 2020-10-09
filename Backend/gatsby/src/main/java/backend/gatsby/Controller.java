@@ -26,7 +26,7 @@ public class Controller {
 	@RequestMapping("/attendees")
 	List<AttendeeUser> getAll()
 	{
-		return db.findAll();
+		return (List<AttendeeUser>) db.findAll();
 	}
 	
 	@PostMapping("/attendee")

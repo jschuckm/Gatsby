@@ -1,7 +1,7 @@
 package backend.gatsby;
 
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -29,8 +29,9 @@ public class HostUser {
 	private String address;
 	
 	//one to many relation: one host can have multiple events, but an event only has one hosts
-	//@Column
-	//private ArrayList<Event> eventsHostedHistory;
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "host")
+	private List<Event> eventsHostedHistory;
 	
 	//define set and get methods for the controller to access the columns
 	public String getName() {
@@ -51,6 +52,10 @@ public class HostUser {
 	
 	public String getAddress() {
 		return address;
+	}
+	
+	public List<Event> getEventsHostedHistory(){
+		return eventsHostedHistory;
 	}
 	
 	public void setName(String n) {

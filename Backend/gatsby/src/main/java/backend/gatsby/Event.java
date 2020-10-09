@@ -1,6 +1,6 @@
 package backend.gatsby;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import java.util.Date;
 
@@ -30,8 +30,10 @@ public class Event {
 	@Column
 	private float fee;
 	
-	//@Column
-	//private HostUser hostProfile;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "host_id")
+	private HostUser hostProfile;
+	
 	
 	@Column
 	private String address;
@@ -67,6 +69,10 @@ public class Event {
 	
 	public int getCapacity() {
 		return capacity;
+	}
+	
+	public HostUser getHost() {
+		return hostProfile;
 	}
 	
 	public void setName(String n) {

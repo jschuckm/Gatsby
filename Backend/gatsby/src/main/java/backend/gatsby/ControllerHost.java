@@ -25,7 +25,7 @@ public class ControllerHost {
 	@RequestMapping("/hosts")
 	List<HostUser> getAll()
 	{
-		return db.findAll();
+		return (List<HostUser>) db.findAll();
 	}
 	
 	@PostMapping("/host")
