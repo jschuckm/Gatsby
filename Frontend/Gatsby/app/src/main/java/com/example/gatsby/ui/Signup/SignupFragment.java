@@ -13,7 +13,6 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.gatsby.R;
-import com.example.gatsby.ui.gallery.GalleryViewModel;
 
 public class SignupFragment extends Fragment {
 
@@ -24,7 +23,7 @@ public class SignupFragment extends Fragment {
         signupViewModel =
                 ViewModelProviders.of(this).get(SignUpViewModel.class);
         View root = inflater.inflate(R.layout.fragment_signup, container, false);
-        final TextView textView = root.findViewById(R.id.text_slideshow);
+        final TextView textView = root.findViewById(R.id.text_signup);
         signupViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
