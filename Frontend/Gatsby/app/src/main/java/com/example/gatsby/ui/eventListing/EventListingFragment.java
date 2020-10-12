@@ -1,4 +1,4 @@
-package com.example.gatsby.ui.home;
+package com.example.gatsby.ui.eventListing;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,17 +14,17 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.gatsby.R;
 
-public class HomeFragment extends Fragment {
+public class EventListingFragment extends Fragment {
 
-    private HomeViewModel homeViewModel;
+    private EventListingModel eventListingModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel =
-                ViewModelProviders.of(this).get(HomeViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_home, container, false);
-        final TextView textView = root.findViewById(R.id.text_home);
-        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        eventListingModel =
+                ViewModelProviders.of(this).get(EventListingModel.class);
+        View root = inflater.inflate(R.layout.fragment_event_listing, container, false);
+        final TextView textView = root.findViewById(R.id.text_event_listing);
+        eventListingModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);

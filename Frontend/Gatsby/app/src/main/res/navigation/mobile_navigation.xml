@@ -3,19 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@+id/nav_event_listing">
 
     <fragment
-        android:id="@+id/nav_home"
-        android:name="com.example.gatsby.ui.home.HomeFragment"
-        android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/nav_event_creation"
+        android:name="com.example.gatsby.ui.eventCreation.EventCreationFragment"
+        android:label="EventCreation"
+        tools:layout="@layout/fragment_event_creation" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.example.gatsby.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:id="@+id/nav_event_listing"
+        android:name="com.example.gatsby.ui.eventListing.EventListingFragment"
+        android:label="@string/menu_event_listing"
+        tools:layout="@layout/fragment_event_listing" />
 
     <fragment
         android:id="@+id/nav_slideshow"
@@ -27,4 +27,10 @@
         android:name="com.example.gatsby.ui.userinfo.UserInfoFragment"
         android:label="User Info"
         tools:layout="@layout/user_info" />
+    <fragment
+        android:id="@+id/nav_signup"
+        android:name="com.example.gatsby.ui.Signup.SignupFragment"
+        android:label="Signup"
+        tools:layout="@layout/fragment_signup" />
+
 </navigation>

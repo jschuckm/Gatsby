@@ -1,4 +1,4 @@
-package com.example.gatsby.ui.gallery;
+package com.example.gatsby.ui.Signup;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,17 +14,17 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.gatsby.R;
 
-public class GalleryFragment extends Fragment {
+public class SignupFragment extends Fragment {
 
-    private GalleryViewModel galleryViewModel;
+    private SignUpViewModel signupViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        galleryViewModel =
-                ViewModelProviders.of(this).get(GalleryViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_gallery, container, false);
-        final TextView textView = root.findViewById(R.id.text_gallery);
-        galleryViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        signupViewModel =
+                ViewModelProviders.of(this).get(SignUpViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_signup, container, false);
+        final TextView textView = root.findViewById(R.id.text_signup);
+        signupViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
