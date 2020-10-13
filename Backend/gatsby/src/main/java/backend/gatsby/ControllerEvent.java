@@ -16,6 +16,9 @@ public class ControllerEvent {
 	@Autowired
 	EventDatabase db;
 	
+	@Autowired
+	HostDatabase dbH;
+	
 	@RequestMapping("/event/{id}")
 	Event getEvent(@PathVariable Integer id) {
 		Event result = db.findById(id).get();
@@ -43,6 +46,7 @@ public class ControllerEvent {
 		oldE.setDate(e.getDate());
 		oldE.setFee(e.getFee());
 		oldE.setIsPublic(e.getIsPublic());
+		oldE.setHost(e.getHost());
 		db.save(oldE);
 		return oldE;
 	}

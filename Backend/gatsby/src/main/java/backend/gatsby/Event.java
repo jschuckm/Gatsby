@@ -75,6 +75,10 @@ public class Event {
 		return hostProfile;
 	}
 	
+	public void setHost(HostUser h) {
+		hostProfile = h;
+	}
+	
 	public void setName(String n) {
 		name = n;
 	}
