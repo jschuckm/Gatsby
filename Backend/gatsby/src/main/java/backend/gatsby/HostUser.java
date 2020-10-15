@@ -2,11 +2,16 @@ package backend.gatsby;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Table(name = "host")
 @Entity
+@JsonIgnoreProperties(value={"hibernateLazyInitializer", "handler", "eventsHostedHistory"}, allowSetters=true)
 public class HostUser {
 
 	@Id
@@ -29,9 +34,10 @@ public class HostUser {
 	private String address;
 	
 	//one to many relation: one host can have multiple events, but an event only has one hosts
+	@JsonManagedReference
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "host")
-	private List<Event> eventsHostedHistory;
+	private Set<Event> eventsHostedHistory;
 	
 	//define set and get methods for the controller to access the columns
 	public String getName() {
@@ -54,8 +60,12 @@ public class HostUser {
 		return address;
 	}
 	
-	public List<Event> getEventsHostedHistory(){
+	public Set<Event> getEventsHostedHistory(){
 		return eventsHostedHistory;
+	}
+	
+	public void addEvent(Event e) {
+		eventsHostedHistory.add(e);
 	}
 	
 	public void setName(String n) {

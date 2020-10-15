@@ -37,6 +37,23 @@ public class ControllerEvent {
 		return e;
 	}
 	
+	@PostMapping("/event/{id}/host/{idH}")
+	Event setHost(@PathVariable Integer id, @PathVariable Integer idH) {
+		Event e = db.findById(id).get();
+		HostUser h = dbH.findById(idH).get();
+		e.setHost(h);
+		h.addEvent(e);
+		dbH.save(h);
+		db.save(e);
+		return e;
+	}
+	
+	@RequestMapping("/event/{id}/host")
+	HostUser getHost(@PathVariable Integer id) {
+		HostUser h = db.findById(id).get().getHost();
+		return h;
+	}
+	
 	@PutMapping("/event/{id}")
 	Event updateEvent(@RequestBody Event e, @PathVariable Integer id) {
 		Event oldE = db.findById(id).get();

@@ -1,6 +1,8 @@
 package backend.gatsby;
 
 import java.util.List;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,6 +17,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class ControllerHost {
 	@Autowired
 	HostDatabase db;
+	
+	@Autowired
+	EventDatabase dbE;
 	
 	@RequestMapping("/host/{id}")
 	HostUser getHost(@PathVariable Integer id) {
@@ -32,6 +37,23 @@ public class ControllerHost {
 	HostUser createHost(@RequestBody HostUser h) {
 		db.save(h);
 		return h;
+	}
+	
+	@PostMapping("/host/{id}/events/{idE}")
+	HostUser addEvent(@PathVariable Integer id, @PathVariable Integer idE) {
+		Event e = dbE.findById(idE).get();
+		HostUser h = db.findById(id).get();
+		e.setHost(h);
+		h.addEvent(e);
+		dbE.save(e);
+		db.save(h);
+		return h;
+	}
+	
+	@RequestMapping("/host/{id}/events")
+	Set<Event> getHostEvents(@PathVariable Integer id) {
+		Set<Event> e = db.findById(id).get().getEventsHostedHistory();
+		return e;
 	}
 	
 	@PutMapping("/host/{id}")

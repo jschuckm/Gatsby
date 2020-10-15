@@ -6,6 +6,8 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Table(name = "event")
 @Entity
 public class Event {
@@ -30,6 +32,7 @@ public class Event {
 	@Column
 	private float fee;
 	
+	@JsonBackReference
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "host_id")
 	private HostUser hostProfile;
