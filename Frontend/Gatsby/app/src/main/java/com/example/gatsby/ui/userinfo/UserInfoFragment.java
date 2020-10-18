@@ -37,6 +37,7 @@ public class UserInfoFragment extends Fragment {
     EditText Email;
     EditText Rating;
     Button Update;
+    Integer i = 1;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         UserInfoViewModel =
@@ -58,7 +59,8 @@ public class UserInfoFragment extends Fragment {
 
                 RequestQueue requestQueue = Volley.newRequestQueue(root.getContext());
                 try {
-                    String url ="http://coms-309-mc-07.cs.iastate.edu:80/attendee/1";
+                    String url ="http://coms-309-mc-07.cs.iastate.edu:80/attendee/"+i;
+                    i++;
                     JSONObject object = new JSONObject();
 
                     Editable name = Name.getText();
@@ -135,7 +137,7 @@ public class UserInfoFragment extends Fragment {
 
                 RequestQueue requestQueue = Volley.newRequestQueue(root.getContext());
                 try {
-                    String url ="http://coms-309-mc-07.cs.iastate.edu:80/attendees";
+                    String url ="http://coms-309-mc-07.cs.iastate.edu:80/attendee/1";
                     JSONObject object = new JSONObject();
                     JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
                         @Override
