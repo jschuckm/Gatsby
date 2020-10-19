@@ -41,7 +41,7 @@ public class EventListingFragment extends Fragment {
     EditText Event3;
     EditText Event4;
 
-    Integer i = 1;
+    Integer i = 0;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -69,18 +69,34 @@ public class EventListingFragment extends Fragment {
 
                 RequestQueue requestQueue = Volley.newRequestQueue(root.getContext());
                 try {
-                    String url ="http://coms-309-mc-07.cs.iastate.edu:80/attendee/"+i;
+                    String url ="http://coms-309-mc-07.cs.iastate.edu:8080/attendees";
                     JSONObject object = new JSONObject();
                     JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
                         @Override
                         public void onResponse(JSONArray response) {
                             try {
                                 JSONArray jsonArray = new JSONArray(response.toString());
-                                jsonArray.getJSONObject(0);
-                                JSONObject first = jsonArray.getJSONObject(0);
+
+                                JSONObject first = jsonArray.getJSONObject(i);
+                                i++;
+                                JSONObject second = jsonArray.getJSONObject(i);
+                                i++;
+                                JSONObject third = jsonArray.getJSONObject(i);
+                                i++;
+                                JSONObject fourth = jsonArray.getJSONObject(i);
+                                i++;
 
                                 Host1.setText(first.get("name").toString());
                                 Event1.setText(first.get("address").toString());
+
+                                Host2.setText(second.get("name").toString());
+                                Event2.setText(second.get("address").toString());
+
+                                Host3.setText(third.get("name").toString());
+                                Event3.setText(third.get("address").toString());
+
+                                Host4.setText(fourth.get("name").toString());
+                                Event4.setText(fourth.get("address").toString());
 
                             }
                             catch(Exception e){
@@ -100,115 +116,6 @@ public class EventListingFragment extends Fragment {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                i++;
-
-                RequestQueue requestQueue2 = Volley.newRequestQueue(root.getContext());
-                try {
-                    String url ="http://coms-309-mc-07.cs.iastate.edu:80/attendee/"+i;
-                    JSONObject object = new JSONObject();
-                    JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
-                        @Override
-                        public void onResponse(JSONArray response) {
-                            try {
-                                JSONArray jsonArray = new JSONArray(response.toString());
-                                jsonArray.getJSONObject(0);
-                                JSONObject first = jsonArray.getJSONObject(0);
-
-                                Host2.setText(first.get("name").toString());
-                                Event2.setText(first.get("address").toString());
-
-                            }
-                            catch(Exception e){
-                                System.out.println(e);
-                                System.out.println("ERROR");
-                            }
-
-                        }
-                    }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            System.out.println(error);
-                            System.out.println("OTHER ERROR");
-                        }
-                    });
-                    requestQueue2.add(jsonArrayRequest);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                i++;
-
-                RequestQueue requestQueue3 = Volley.newRequestQueue(root.getContext());
-                try {
-                    String url ="http://coms-309-mc-07.cs.iastate.edu:80/attendee/"+i;
-                    JSONObject object = new JSONObject();
-                    JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
-                        @Override
-                        public void onResponse(JSONArray response) {
-                            try {
-                                JSONArray jsonArray = new JSONArray(response.toString());
-                                jsonArray.getJSONObject(0);
-                                JSONObject first = jsonArray.getJSONObject(0);
-
-                                Host3.setText(first.get("name").toString());
-                                Event3.setText(first.get("address").toString());
-
-                            }
-                            catch(Exception e){
-                                System.out.println(e);
-                                System.out.println("ERROR");
-                            }
-
-                        }
-                    }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            System.out.println(error);
-                            System.out.println("OTHER ERROR");
-                        }
-                    });
-                    requestQueue3.add(jsonArrayRequest);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                i++;
-
-                RequestQueue requestQueue4 = Volley.newRequestQueue(root.getContext());
-                try {
-                    String url ="http://coms-309-mc-07.cs.iastate.edu:80/attendee/"+i;
-                    JSONObject object = new JSONObject();
-                    JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
-                        @Override
-                        public void onResponse(JSONArray response) {
-                            try {
-                                JSONArray jsonArray = new JSONArray(response.toString());
-                                jsonArray.getJSONObject(0);
-                                JSONObject first = jsonArray.getJSONObject(0);
-
-                                Host4.setText(first.get("name").toString());
-                                Event4.setText(first.get("address").toString());
-
-                            }
-                            catch(Exception e){
-                                System.out.println(e);
-                                System.out.println("ERROR");
-                            }
-
-                        }
-                    }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            System.out.println(error);
-                            System.out.println("OTHER ERROR");
-                        }
-                    });
-                    requestQueue4.add(jsonArrayRequest);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                i++;
-
-
-
 
             }
 

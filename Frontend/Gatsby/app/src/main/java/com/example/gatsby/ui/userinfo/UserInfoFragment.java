@@ -59,7 +59,7 @@ public class UserInfoFragment extends Fragment {
 
                 RequestQueue requestQueue = Volley.newRequestQueue(root.getContext());
                 try {
-                    String url ="http://coms-309-mc-07.cs.iastate.edu:80/attendee/"+i;
+                    String url ="http://coms-309-mc-07.cs.iastate.edu:8080/attendee/"+i;
                     i++;
                     JSONObject object = new JSONObject();
 
@@ -97,15 +97,17 @@ public class UserInfoFragment extends Fragment {
             public void onClick(View view) {
                 RequestQueue requestQueue = Volley.newRequestQueue(root.getContext());
                 try {
-                    String url ="http://coms-309-mc-07.cs.iastate.edu:80/attendee";
-                    JSONObject object = new JSONObject();
+                    String url ="http://coms-309-mc-07.cs.iastate.edu:8080/attendee";
+
 
                     Editable name = Name.getText();
                     Editable age = Age.getText();
                     Editable location = Location.getText();
                     Editable email = Email.getText();
                     Editable rating = Rating.getText();
+
                     JSONObject temp = new JSONObject(" { \"name\":"+name+", \"age\": "+age+", \"rating\":"+rating+", \"email\": "+email+", \"address\": "+location+" }");
+
                     JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, temp, new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
@@ -137,7 +139,7 @@ public class UserInfoFragment extends Fragment {
 
                 RequestQueue requestQueue = Volley.newRequestQueue(root.getContext());
                 try {
-                    String url ="http://coms-309-mc-07.cs.iastate.edu:80/attendee/1";
+                    String url ="http://coms-309-mc-07.cs.iastate.edu:8080/attendees";
                     JSONObject object = new JSONObject();
                     JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
                         @Override
