@@ -7,5 +7,4 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @Repository
 public interface EventDatabase extends JpaRepository<Event, Integer> {
-	
 }

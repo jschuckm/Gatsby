@@ -28,6 +28,7 @@ public class Event {
 	private Date date;
 	
 	@Column
+	@ElementCollection
 	private List<String> applicants;
 	
 	@Column
