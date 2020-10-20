@@ -38,7 +38,6 @@ public class ControllerHost {
 		db.save(h);
 		return h;
 	}
-	
 	@PostMapping("/host/{id}/events/{idE}")
 	HostUser addEvent(@PathVariable Integer id, @PathVariable Integer idE) {
 		Event e = dbE.findById(idE).get();
@@ -73,5 +72,4 @@ public class ControllerHost {
 		db.delete(db.findById(id).get());
 		return "Deleted " + id;
 	}
-
 }

@@ -49,7 +49,7 @@ public class ControllerEvent {
 	}
 	
 	@RequestMapping("/event/{id}/host")
-	HostUser getHost(@PathVariable Integer id) {
+	HostUser getEventHost(@PathVariable Integer id) {
 		HostUser h = db.findById(id).get().getHost();
 		return h;
 	}

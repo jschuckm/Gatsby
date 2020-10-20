@@ -6,12 +6,13 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Table(name = "host")
 @Entity
-@JsonIgnoreProperties(value={"hibernateLazyInitializer", "handler", "eventsHostedHistory"}, allowSetters=true)
+//@JsonIgnoreProperties(value={"hibernateLazyInitializer", "handler", "eventsHostedHistory"})
 public class HostUser {
 
 	@Id
@@ -34,7 +35,6 @@ public class HostUser {
 	private String address;
 	
 	//one to many relation: one host can have multiple events, but an event only has one hosts
-	@JsonManagedReference
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "host")
 	private Set<Event> eventsHostedHistory;
@@ -60,6 +60,7 @@ public class HostUser {
 		return address;
 	}
 	
+	@JsonIgnore
 	public Set<Event> getEventsHostedHistory(){
 		return eventsHostedHistory;
 	}

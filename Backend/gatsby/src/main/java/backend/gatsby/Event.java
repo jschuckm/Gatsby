@@ -7,6 +7,8 @@ import java.util.Date;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Table(name = "event")
 @Entity
@@ -25,16 +27,15 @@ public class Event {
 	@Column
 	private Date date;
 	
-	//many to many relation: one event has many attendees and the users can attend many events
-	//@Column
-	//private ArrayList<AttendeeUser> attendeesList;
+	@Column
+	private List<String> applicants;
 	
 	@Column
 	private float fee;
 	
-	@JsonBackReference
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "host_id")
+	//@JsonIgnore
 	private HostUser hostProfile;
 	
 	
@@ -74,8 +75,13 @@ public class Event {
 		return capacity;
 	}
 	
+	@JsonIgnore
 	public HostUser getHost() {
 		return hostProfile;
+	}
+	
+	public List<String> getApplicants(){
+		return applicants;
 	}
 	
 	public void setHost(HostUser h) {
