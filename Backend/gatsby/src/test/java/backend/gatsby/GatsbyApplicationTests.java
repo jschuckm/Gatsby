@@ -13,6 +13,7 @@ import backend.gatsby.HostUser;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.json.JSONObject;
 //import junit/spring tests
@@ -22,6 +23,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -72,6 +76,40 @@ public class GatsbyApplicationTests {
 		.andExpect(jsonPath("$[0].name", is(e.getName())))
 		.andExpect(jsonPath("$[0].capacity", is(e.getCapacity())));
 	}
+	
+	@Test
+	public void testEventControllerPost() throws Exception {
+		List<Event> l = new ArrayList<Event>();
+		when(eventDB.save((Event)any(Event.class)))
+		.thenAnswer(x-> {
+			Event e = x.getArgument(0);
+			l.add(e);
+			return e;
+		});
+		
+		Event e = new Event();
+		e.setAddress("Ames");
+		e.setCapacity(50);
+		e.setDate(null);
+		e.setFee((float)20.95);
+		e.setHost(null);
+		e.setIsPublic(true);
+		e.setName("Joe's Birthday");
+		l.add(e);	
+		
+		controller.perform(post("/event").contentType(MediaType.APPLICATION_JSON).content(asJsonString(e)))
+		.andExpect(status().isOk())
+		.andExpect(jsonPath("$.name", is(e.getName())))
+		.andExpect(jsonPath("$.capacity", is(e.getCapacity())));
+	}
+	
+	public static String asJsonString(final Object obj) {
+        try {
+            return new ObjectMapper().writeValueAsString(obj);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 	
 	@Test
@@ -147,35 +185,4 @@ public class GatsbyApplicationTests {
 		.andExpect(jsonPath("$[0].capacity", is(e.getCapacity())))
 		.andExpect(jsonPath("$[0].isPublic", is(e.getIsPublic())));
 	}
-	
-	/*@Test
-	public void testHostConnectionToEvent() throws Exception {
-		List<HostUser> hostList = new ArrayList<HostUser>();
-		List<Event> eventList = new ArrayList<Event>();
-		when(eventDB.findAll()).thenReturn(eventList);
-		
-		HostUser h = new HostUser();
-		h.setAddress("Ames");
-		h.setAge(22);
-		h.setEmail("joe@gmail.com");
-		h.setName("Joe");
-		h.setRating((float)4.8);
-		hostList.add(h);
-		
-		Event e = new Event();
-		e.setAddress("Ames");
-		e.setCapacity(50);
-		e.setDate(null);
-		e.setFee((float)20.95);
-		e.setHost(h);
-		e.setIsPublic(true);
-		e.setName("Joe's Birthday");
-		eventList.add(e);
-		
-		
-		controller.perform(get("/events").contentType(MediaType.APPLICATION_JSON))
-		.andExpect(status().isOk())
-		.andExpect(jsonPath("$[0].host.name", is(h.getName())))
-		.andExpect(jsonPath("$[0].host.age", is(h.getAge())));
-	}*/
 }
