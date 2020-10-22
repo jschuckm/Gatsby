@@ -47,34 +47,46 @@
     -->
 
 
-    <!-- libraries for myql driver  -->
-    <dependency>
-      <groupId>mysql</groupId>
-      <artifactId>mysql-connector-java</artifactId>
-      <version>8.0.12</version>
-      <scope>runtime</scope>
-    </dependency>
-
-    <!-- libraries for hibernate (abstracts database) -->
-    <dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		<!-- libraries for myql driver  -->
+		<dependency>
+		  <groupId>mysql</groupId>
+		  <artifactId>mysql-connector-java</artifactId>
+		  <version>8.0.12</version>
+		  <scope>runtime</scope>
 		</dependency>
 
-    <!-- want to create jar files etc -->
-  	<dependency>
-       <groupId>org.springframework.boot</groupId>
-       <artifactId>spring-boot-devtools</artifactId>
-             <optional>true</optional>
-    </dependency> 
+		<!-- libraries for hibernate (abstracts database) -->
+		<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-data-jpa</artifactId>
+			</dependency>
 
-    <!-- need this for new versions of java (I think) -->
-    <dependency>
-        <groupId>javax.xml.bind</groupId>
-        <artifactId>jaxb-api</artifactId>
-        <version>2.3.0</version>
-    </dependency>
+		<!-- want to create jar files etc -->
+		<dependency>
+		   <groupId>org.springframework.boot</groupId>
+		   <artifactId>spring-boot-devtools</artifactId>
+				 <optional>true</optional>
+		</dependency>
 
+		<!-- need this for new versions of java (I think) -->
+		<dependency>
+			<groupId>javax.xml.bind</groupId>
+			<artifactId>jaxb-api</artifactId>
+			<version>2.3.0</version>
+		</dependency>
+
+		<!-- dependency for authorization and authentication-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+
+		<!-- dependency for json web token-->
+		<dependency>
+			<groupId>com.auth0</groupId>
+			<artifactId>java-jwt</artifactId>
+			<version>3.10.3</version>
+		</dependency>
 	</dependencies>
 
 	<build>

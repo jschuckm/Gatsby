@@ -11,7 +11,7 @@ public class AttendeeUser {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer id;
-	
+
 	@Column
 	private String name;
 	
@@ -21,12 +21,34 @@ public class AttendeeUser {
 	@Column
 	private double rating;
 	
-	@Column
+	@Column(nullable = false, unique = true)
 	private String email;
+
+	@Column(nullable = false)
+	private String password;
 	
 	@Column
 	private String address;
-	
+
+	@Column(nullable = false)
+	private String username;
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	public String getName() {
 		return name;
 	}
