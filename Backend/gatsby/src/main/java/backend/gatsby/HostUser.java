@@ -12,7 +12,6 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Table(name = "host")
 @Entity
-//@JsonIgnoreProperties(value={"hibernateLazyInitializer", "handler", "eventsHostedHistory"})
 public class HostUser {
 
 	@Id
