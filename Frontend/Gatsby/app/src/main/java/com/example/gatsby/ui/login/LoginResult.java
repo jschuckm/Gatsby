@@ -1,4 +1,4 @@
-package  com.example.gatsby.ui.login;
+package com.example.gatsby.ui.login;
 
 import androidx.annotation.Nullable;
 

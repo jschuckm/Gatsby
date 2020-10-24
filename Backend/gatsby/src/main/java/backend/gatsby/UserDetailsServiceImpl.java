@@ -25,4 +25,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
         return new User(attendeeUser.getUsername(), attendeeUser.getPassword(), emptyList());
     }
+
+    public AttendeeUser loadAttendeeUserByUsername(String username) throws UsernameNotFoundException {
+        AttendeeUser attendeeUser = attendeeDatabase.findByUsername(username);
+        if (attendeeUser == null) {
+            throw new UsernameNotFoundException(username);
+        }
+        return attendeeUser;
+    }
 }
