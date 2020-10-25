@@ -33,7 +33,11 @@ public class Controller {
 	{
 		return (List<AttendeeUser>) db.findAll();
 	}
-	
+
+	@RequestMapping("/attendee")
+	AttendeeUser getByUserName(@RequestBody AttendeeUser a){
+		return db.findByUsername(a.getUsername());
+	}
 	@PostMapping("/attendee")
 	AttendeeUser createUser(@RequestBody AttendeeUser a) {
 		db.save(a);

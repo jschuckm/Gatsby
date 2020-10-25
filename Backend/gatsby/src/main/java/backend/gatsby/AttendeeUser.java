@@ -6,10 +6,12 @@ import javax.persistence.*;
 @Table(name = "attendee")
 @Entity
 public class AttendeeUser {
+
 	//first, define all of the fields that belong to this user
 	//The ID is defined similarly to the example provided to us by prof. Mitra
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column
 	Integer id;
 
 	@Column
@@ -87,5 +89,13 @@ public class AttendeeUser {
 
 	public void setRating(Double newRating) {
 		rating = newRating;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 }

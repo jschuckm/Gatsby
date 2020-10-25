@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -23,10 +24,14 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.gatsby.MyApplication;
 import com.example.gatsby.R;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class UserInfoFragment extends Fragment {
 
@@ -82,7 +87,14 @@ public class UserInfoFragment extends Fragment {
                             System.out.println(error);
                             System.out.println("OTHER ERROR");
                         }
-                    });
+                    }){
+                        @Override
+                        public Map<String, String> getHeaders() throws AuthFailureError {
+                            HashMap<String, String> headers = new HashMap<String, String>();
+                            System.out.println(MyApplication.getUser().getAuthToken());
+                            headers.put("Authorization", MyApplication.getUser().getAuthToken());
+                            return headers;
+                        }};
                     requestQueue.add(jsonObjectRequest);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -121,7 +133,14 @@ public class UserInfoFragment extends Fragment {
                             System.out.println(error);
                             System.out.println("OTHER ERROR");
                         }
-                    });
+                    }){
+                        @Override
+                        public Map<String, String> getHeaders() throws AuthFailureError {
+                            HashMap<String, String> headers = new HashMap<String, String>();
+                            System.out.println(MyApplication.getUser().getAuthToken());
+                            headers.put("Authorization", MyApplication.getUser().getAuthToken());
+                            return headers;
+                        }};
                     requestQueue.add(jsonObjectRequest);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -169,7 +188,14 @@ public class UserInfoFragment extends Fragment {
                             System.out.println(error);
                             System.out.println("OTHER ERROR");
                         }
-                    });
+                    }){
+                        @Override
+                        public Map<String, String> getHeaders() throws AuthFailureError {
+                            HashMap<String, String> headers = new HashMap<String, String>();
+                            System.out.println(MyApplication.getUser().getAuthToken());
+                            headers.put("Authorization", MyApplication.getUser().getAuthToken());
+                            return headers;
+                        }};
                     requestQueue.add(jsonArrayRequest);
                 } catch (Exception e) {
                     e.printStackTrace();

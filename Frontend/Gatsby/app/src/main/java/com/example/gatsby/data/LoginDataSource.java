@@ -155,14 +155,25 @@ public class LoginDataSource {
         queue.add(myRequest);
         while(!myRequest.hasHadResponseDelivered()){
         }
-
-        JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET, "http://10.0.2.2:8080/attendees",
-                null, new Response.Listener<JSONObject>() {
+        JSONObject reqBody;
+        try {
+            reqBody = new JSONObject(" { \"username\": \"" + username + "\"}");
+            Log.i("LoginToBackend","ReqBody: "+reqBody.toString());
+        }catch(JSONException e){
+            Log.e("DataSource",e.toString());
+            return new Result.Error(e);
+        }
+        /*JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET, "http://10.0.2.2:8080/attendee",
+                reqBody, new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {
-                System.out.println("attendees:"+response);
-                loggedInUser.setUserId("fake");
+                System.out.println("attendee:"+response);
+                try{
+                    loggedInUser.setUserId(response.get("id").toString());
+                }catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         }, new Response.ErrorListener() {
             @Override
@@ -179,8 +190,14 @@ public class LoginDataSource {
                 return headers;
             }
         };
+        byte [] body = req.getBody();
+        for(byte c: body){
+            System.out.print(((char)c));
+        }
+        System.out.print("");
+        System.out.println("reqbody:"+req.getBody());
         queue.add(req);
-        while(!req.hasHadResponseDelivered());
+        while(!req.hasHadResponseDelivered());*/
         return new Result.Success<>(loggedInUser);
     }
 }
