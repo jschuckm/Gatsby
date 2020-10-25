@@ -2,6 +2,8 @@ package backend.gatsby;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +18,9 @@ public class Controller {
 
 	@Autowired
 	AttendeeDatabase db;
+
+	@Autowired
+	BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	@RequestMapping("/attendee/{id}")
 	AttendeeUser getUser(@PathVariable Integer id) {
@@ -28,11 +33,22 @@ public class Controller {
 	{
 		return (List<AttendeeUser>) db.findAll();
 	}
-	
+
+	@RequestMapping("/attendee")
+	AttendeeUser getByUserName(@RequestBody AttendeeUser a){
+		return db.findByUsername(a.getUsername());
+	}
 	@PostMapping("/attendee")
 	AttendeeUser createUser(@RequestBody AttendeeUser a) {
 		db.save(a);
 		return a;
+	}
+	@PostMapping("/register")
+	String registerUser(@RequestBody AttendeeUser a) {
+
+		a.setPassword(bCryptPasswordEncoder.encode(a.getPassword()));
+		db.save(a);
+		return a.getEmail();
 	}
 	
 	@PutMapping("/attendee/{id}")
@@ -42,6 +58,7 @@ public class Controller {
 		oldA.setAge(a.getAge());
 		oldA.setAddress(a.getAddress());
 		oldA.setEmail(a.getEmail());
+		oldA.setUsername(a.getUsername());
 		oldA.setRating(a.getRating());
 		db.save(oldA);
 		return oldA;
