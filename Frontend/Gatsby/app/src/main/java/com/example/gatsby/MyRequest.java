@@ -19,9 +19,14 @@ import java.util.Map;
 
 public class MyRequest extends JsonObjectRequest {
     Response.Listener myListener;
+    Response.ErrorListener myErrorListener;
     public MyRequest(int method, java.lang.String url, org.json.JSONObject jsonRequest, Response.Listener<org.json.JSONObject> listener, Response.ErrorListener errorListener) {
         super(method, url,jsonRequest,listener, errorListener);
         this.myListener = listener;
+    }
+
+    public Response.ErrorListener getErrorListener(){
+        return this.myErrorListener;
     }
 
     @Override

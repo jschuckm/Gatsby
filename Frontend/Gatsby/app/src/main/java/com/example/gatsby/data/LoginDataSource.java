@@ -51,6 +51,7 @@ public class LoginDataSource {
             // TODO: handle loggedInUser authentication
             return loginToBackend(username,password);
         } catch (Exception e) {
+            System.out.println("Error loggin in");
             return new Result.Error(new IOException("Error logging in", e));
         }
     }
@@ -59,13 +60,14 @@ public class LoginDataSource {
         // TODO: revoke authentication
     }
 
-    private Result<LoggedInUser> loginToBackend(String username, String password){
+    private Result<LoggedInUser> loginToBackend(String username, String password) throws Exception{
         Log.i("LoginToBackend","In login to backend");
         final RequestQueue queue = Volley.newRequestQueue(MyApplication.getAppContext());
         JSONObject temp;
         final LoggedInUser loggedInUser = new LoggedInUser();
         loggedInUser.setDisplayName(username);
         final String[] authToken = new String[1];
+        final Boolean[] errorBool = {false};
         /*BufferedReader in = null;
         HttpURLConnection urlConnection = null;
         byte [] result = new byte[1000];
@@ -84,53 +86,17 @@ public class LoginDataSource {
         } finally {
             urlConnection.disconnect();
         }*/
-        try {
-            Log.i("LoginToBackend","InFirstTry");
-            String volleyUrl ="http://coms-309-mc-07.cs.iastate.edu:8080/attendees";
-            JSONObject object = new JSONObject();
-            JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, volleyUrl, null, new Response.Listener<JSONArray>() {
-                @Override
-                public void onResponse(JSONArray response) {
-                    try {
-                        Log.i("LoginToBackend","In try within first try");
-                        JSONArray jsonArray = new JSONArray(response.toString());
-                        jsonArray.getJSONObject(0);
-                        JSONObject first = jsonArray.getJSONObject(0);
-                        Log.i("DataSource","Name: "+first.get("name").toString());
-
-                        Log.i("DataSource",first.get("age").toString());
-                        Log.i("DataSource",first.get("address").toString());
-                        Log.i("DataSource",first.get("email").toString());
-                        Log.i("DataSource",first.get("rating").toString());
-                    }
-                    catch(Exception e){
-                        Log.e("DataSource",e.toString());
-                    }
-
-
-
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Log.e("DataSource",error.toString());
-                }
-            });
-            queue.add(jsonArrayRequest);
-            while(!jsonArrayRequest.hasHadResponseDelivered()){
-                sleep(100);
-            }
-            Log.i("LoginToBackend","After first queue add");
-        } catch (Exception e) {
+        //try {
+        /*} catch (Exception e) {
             Log.e("DataSource",e.getStackTrace().toString());
-        }
-        try {
+        }*/
+        //try {
             temp = new JSONObject(" { \"username\":" + username + ", \"password\": " + password + "}");
             Log.i("LoginToBackend","Temp: "+temp.toString());
-        }catch(JSONException e){
+        /*}catch(JSONException e){
             Log.e("DataSource",e.toString());
             return new Result.Error(e);
-        }
+        }*/
         MyRequest myRequest = new MyRequest(Request.Method.POST,"http://10.0.2.2:8080/login", temp, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -139,7 +105,7 @@ public class LoginDataSource {
                 try {
                     System.out.println(response.get("Authorization"));
                     loggedInUser.setToken(response.get("Authorization").toString());
-                } catch (JSONException e) {
+                }catch (JSONException e) {
                     e.printStackTrace();
                 }
 
@@ -150,19 +116,27 @@ public class LoginDataSource {
             public void onErrorResponse(VolleyError error) {
                 System.out.println(error);
                 System.out.println("OTHER ERROR");
+                errorBool[0] = true;
             }
         });
         queue.add(myRequest);
+        int count = 0;
         while(!myRequest.hasHadResponseDelivered()){
+            sleep(100);
+            count++;
+            if(count == 40){
+                myRequest.getErrorListener().onErrorResponse(new VolleyError("Timeout"));
+                break;
+            }
         }
         JSONObject reqBody;
-        try {
+        //try {
             reqBody = new JSONObject(" { \"username\": \"" + username + "\"}");
             Log.i("LoginToBackend","ReqBody: "+reqBody.toString());
-        }catch(JSONException e){
+        /*}catch(JSONException e){
             Log.e("DataSource",e.toString());
             return new Result.Error(e);
-        }
+        }*/
         /*JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET, "http://10.0.2.2:8080/attendee",
                 reqBody, new Response.Listener<JSONObject>() {
 
@@ -198,6 +172,7 @@ public class LoginDataSource {
         System.out.println("reqbody:"+req.getBody());
         queue.add(req);
         while(!req.hasHadResponseDelivered());*/
+        if(errorBool[0])throw new Exception();
         return new Result.Success<>(loggedInUser);
     }
 }
