@@ -18,9 +18,10 @@ import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
 public class MyRequest extends JsonObjectRequest {
-
+    Response.Listener myListener;
     public MyRequest(int method, java.lang.String url, org.json.JSONObject jsonRequest, Response.Listener<org.json.JSONObject> listener, Response.ErrorListener errorListener) {
         super(method, url,jsonRequest,listener, errorListener);
+        this.myListener = listener;
     }
 
     @Override
@@ -31,6 +32,7 @@ public class MyRequest extends JsonObjectRequest {
         System.out.println(response.headers);
         System.out.println(response.networkTimeMs);
         System.out.println(new JSONObject(response.headers));
+        this.myListener.onResponse(new JSONObject(response.headers));
         return Response.success(
                 new JSONObject(response.headers), HttpHeaderParser.parseCacheHeaders(response));
     }
