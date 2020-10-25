@@ -14,6 +14,11 @@ public class LoggedInUser {
         this.displayName = displayName;
         this.token = token;
     }
+    public LoggedInUser() {
+        this.userId = null;
+        this.displayName = null;
+        this.token = null;
+    }
 
     public String getUserId() {
         return userId;
@@ -25,5 +30,16 @@ public class LoggedInUser {
 
     public String getToken() {
         return this.token;
+    }
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }
