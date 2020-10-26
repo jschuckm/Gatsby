@@ -6,12 +6,14 @@ import javax.persistence.*;
 @Table(name = "attendee")
 @Entity
 public class AttendeeUser {
+
 	//first, define all of the fields that belong to this user
 	//The ID is defined similarly to the example provided to us by prof. Mitra
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column
 	Integer id;
-	
+
 	@Column
 	private String name;
 	
@@ -21,12 +23,34 @@ public class AttendeeUser {
 	@Column
 	private double rating;
 	
-	@Column
+	@Column(nullable = false, unique = true)
 	private String email;
+
+	@Column(nullable = false)
+	private String password;
 	
 	@Column
 	private String address;
-	
+
+	@Column(nullable = false)
+	private String username;
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -65,5 +89,13 @@ public class AttendeeUser {
 
 	public void setRating(Double newRating) {
 		rating = newRating;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 }

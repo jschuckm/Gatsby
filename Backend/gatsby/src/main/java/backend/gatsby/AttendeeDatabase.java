@@ -7,5 +7,5 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @Repository
 public interface AttendeeDatabase extends JpaRepository<AttendeeUser, Integer> {
-	
+	AttendeeUser findByUsername(String email);
 }
