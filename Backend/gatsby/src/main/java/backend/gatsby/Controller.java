@@ -15,45 +15,45 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class Controller {
 
 	@Autowired
-	AttendeeDatabase db;
+	AttendeeDatabase attendeeDB;
 	
 	@RequestMapping("/attendee/{id}")
 	AttendeeUser getUser(@PathVariable Integer id) {
-		AttendeeUser result = db.findById(id).get();
+		AttendeeUser result = attendeeDB.findById(id).get();
 		return result;
 	}
 	
 	@RequestMapping("/attendees")
 	List<AttendeeUser> getAll()
 	{
-		return (List<AttendeeUser>) db.findAll();
+		return (List<AttendeeUser>) attendeeDB.findAll();
 	}
 	
 	@PostMapping("/attendee")
 	AttendeeUser createUser(@RequestBody AttendeeUser a) {
-		db.save(a);
+		attendeeDB.save(a);
 		return a;
 	}
 	
 	@PutMapping("/attendee/{id}")
 	AttendeeUser updateUser(@RequestBody AttendeeUser a, @PathVariable Integer id) {
-		AttendeeUser oldA = db.findById(id).get();
+		AttendeeUser oldA = attendeeDB.findById(id).get();
 		oldA.setName(a.getName());
 		oldA.setAge(a.getAge());
 		oldA.setAddress(a.getAddress());
 		oldA.setEmail(a.getEmail());
 		oldA.setRating(a.getRating());
-		db.save(oldA);
+		attendeeDB.save(oldA);
 		return oldA;
 	}
 	
 	AttendeeUser findOne(@PathVariable Integer id) {
-		return db.findById(id).get();
+		return attendeeDB.findById(id).get();
 	}
 	
 	@DeleteMapping("/attendee/{id}")
 	String deleteUser(@PathVariable Integer id) {
-		db.delete(db.findById(id).get());
+		attendeeDB.delete(attendeeDB.findById(id).get());
 		return "Deleted " + id;
 	}
 }

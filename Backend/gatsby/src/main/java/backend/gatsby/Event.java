@@ -7,6 +7,7 @@ import java.util.Date;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -25,6 +26,7 @@ public class Event {
 	private String description;
 	
 	@Column
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="MM-DD'T'HH:mm:ss.SSS'YYYY'", timezone="CDT")
 	private Date date;
 	
 	@Column

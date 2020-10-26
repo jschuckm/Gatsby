@@ -14,49 +14,49 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RestController
 public class ControllerEvent {
 	@Autowired
-	EventDatabase db;
+	EventDatabase eventDB;
 	
 	@Autowired
-	HostDatabase dbH;
+	HostDatabase hostDB;
 	
 	@RequestMapping("/event/{id}")
 	Event getEvent(@PathVariable Integer id) {
-		Event result = db.findById(id).get();
+		Event result = eventDB.findById(id).get();
 		return result;
 	}
 	
 	@RequestMapping("/events")
 	List<Event> getAll()
 	{
-		return (List<Event>) db.findAll();
+		return (List<Event>) eventDB.findAll();
 	}
 	
 	@PostMapping("/event")
 	Event createEvent(@RequestBody Event e) {
-		db.save(e);
+		eventDB.save(e);
 		return e;
 	}
 	
 	@PostMapping("/event/{id}/host/{idH}")
 	Event setHost(@PathVariable Integer id, @PathVariable Integer idH) {
-		Event e = db.findById(id).get();
-		HostUser h = dbH.findById(idH).get();
+		Event e = eventDB.findById(id).get();
+		HostUser h = hostDB.findById(idH).get();
 		e.setHost(h);
 		h.addEvent(e);
-		dbH.save(h);
-		db.save(e);
+		hostDB.save(h);
+		eventDB.save(e);
 		return e;
 	}
 	
 	@RequestMapping("/event/{id}/host")
 	HostUser getEventHost(@PathVariable Integer id) {
-		HostUser h = db.findById(id).get().getHost();
+		HostUser h = eventDB.findById(id).get().getHost();
 		return h;
 	}
 	
 	@PutMapping("/event/{id}")
 	Event updateEvent(@RequestBody Event e, @PathVariable Integer id) {
-		Event oldE = db.findById(id).get();
+		Event oldE = eventDB.findById(id).get();
 		oldE.setName(e.getName());
 		oldE.setAddress(e.getAddress());
 		oldE.setCapacity(e.getCapacity());
@@ -64,13 +64,13 @@ public class ControllerEvent {
 		oldE.setFee(e.getFee());
 		oldE.setIsPublic(e.getIsPublic());
 		oldE.setHost(e.getHost());
-		db.save(oldE);
+		eventDB.save(oldE);
 		return oldE;
 	}
 	
 	@DeleteMapping("/event/{id}")
 	String deleteEvent(@PathVariable Integer id) {
-		db.delete(db.findById(id).get());
+		eventDB.delete(eventDB.findById(id).get());
 		return "Deleted " + id;
 	}
 
