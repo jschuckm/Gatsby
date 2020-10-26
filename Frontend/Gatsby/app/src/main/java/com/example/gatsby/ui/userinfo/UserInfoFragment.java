@@ -103,51 +103,6 @@ public class UserInfoFragment extends Fragment {
 
         });
 
-        /*Button Post = (Button) root.findViewById(R.id.Post);
-        Post.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                RequestQueue requestQueue = Volley.newRequestQueue(root.getContext());
-                try {
-                    String url ="http://coms-309-mc-07.cs.iastate.edu:8080/attendee";
-
-
-                    Editable name = Name.getText();
-                    Editable age = Age.getText();
-                    Editable location = Location.getText();
-                    Editable email = Email.getText();
-                    Editable rating = Rating.getText();
-
-                    JSONObject temp = new JSONObject(" { \"name\":"+name+", \"age\": "+age+", \"rating\":"+rating+", \"email\": "+email+", \"address\": "+location+" }");
-
-                    JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, temp, new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            System.out.println(response);
-
-
-                        }
-                    }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            System.out.println(error);
-                            System.out.println("OTHER ERROR");
-                        }
-                    }){
-                        @Override
-                        public Map<String, String> getHeaders() throws AuthFailureError {
-                            HashMap<String, String> headers = new HashMap<String, String>();
-                            System.out.println(MyApplication.getUser().getAuthToken());
-                            headers.put("Authorization", MyApplication.getUser().getAuthToken());
-                            return headers;
-                        }};
-                    requestQueue.add(jsonObjectRequest);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });*/
-
         Button Get = (Button) root.findViewById(R.id.Get);
         Get.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -191,64 +146,12 @@ public class UserInfoFragment extends Fragment {
                     HashMap<String, String> headers = new HashMap<String, String>();
                     System.out.println(MyApplication.getUser().getAuthToken());
                     headers.put("Authorization", MyApplication.getUser().getAuthToken());
-                    /*headers.put("Content-Type","application/json");
-                    headers.put("Content-Length",""+object.length());
-                    headers.put("accept","*///*");
-                    /*headers.put("Accept-Encoding","gzip,deflate,br");
-                    headers.put("Connection","keep-alive");*/
                     return headers;
                 }};
             queue.add(jsonObjectRequest);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
-
-                /*RequestQueue requestQueue = Volley.newRequestQueue(root.getContext());
-                try {
-                    String url ="http://10.0.2.2:8080/attendee/"+MyApplication.getUser().getDisplayName();
-                    JSONObject object = new JSONObject();
-                    JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
-                        @Override
-                        public void onResponse(JSONArray response) {
-                            try {
-                                JSONArray jsonArray = new JSONArray(response.toString());
-                                jsonArray.getJSONObject(0);
-                                JSONObject first = jsonArray.getJSONObject(0);
-
-                                Name.setText(first.get("name").toString());
-                                Age.setText(first.get("age").toString());
-                                Location.setText(first.get("address").toString());
-                                Email.setText(first.get("email").toString());
-                                Rating.setText(first.get("rating").toString());
-                            }
-                            catch(Exception e){
-                                System.out.println(e);
-                                System.out.println("ERROR");
-                            }
-
-
-
-                        }
-                    }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            System.out.println(error);
-                            System.out.println("OTHER ERROR");
-                        }
-                    }){
-                        @Override
-                        public Map<String, String> getHeaders() throws AuthFailureError {
-                            HashMap<String, String> headers = new HashMap<String, String>();
-                            System.out.println(MyApplication.getUser().getAuthToken());
-                            headers.put("Authorization", MyApplication.getUser().getAuthToken());
-                            return headers;
-                        }};
-                    requestQueue.add(jsonArrayRequest);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }*/
             }
         });
 

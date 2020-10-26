@@ -68,35 +68,8 @@ public class LoginDataSource {
         loggedInUser.setDisplayName(username);
         final String[] authToken = new String[1];
         final Boolean[] errorBool = {false};
-        /*BufferedReader in = null;
-        HttpURLConnection urlConnection = null;
-        byte [] result = new byte[1000];
-        try{
-            URL url = new URL("http://www.android.com/");
-            urlConnection = (HttpURLConnection) url.openConnection();
-            in = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-            String inputLine;
-            while ((inputLine = in.readLine()) != null)
-                System.out.println(inputLine);
-            in.close();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            urlConnection.disconnect();
-        }*/
-        //try {
-        /*} catch (Exception e) {
-            Log.e("DataSource",e.getStackTrace().toString());
-        }*/
-        //try {
             temp = new JSONObject(" { \"username\":" + username + ", \"password\": " + password + "}");
             Log.i("LoginToBackend","Temp: "+temp.toString());
-        /*}catch(JSONException e){
-            Log.e("DataSource",e.toString());
-            return new Result.Error(e);
-        }*/
         MyRequest myRequest = new MyRequest(Request.Method.POST,"http://coms-309-mc-07.cs.iastate.edu:8080/login", temp, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -133,45 +106,6 @@ public class LoginDataSource {
         //try {
             reqBody = new JSONObject(" { \"username\": \"" + username + "\"}");
             Log.i("LoginToBackend","ReqBody: "+reqBody.toString());
-        /*}catch(JSONException e){
-            Log.e("DataSource",e.toString());
-            return new Result.Error(e);
-        }*/
-        /*JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET, "http://10.0.2.2:8080/attendee",
-                reqBody, new Response.Listener<JSONObject>() {
-
-            @Override
-            public void onResponse(JSONObject response) {
-                System.out.println("attendee:"+response);
-                try{
-                    loggedInUser.setUserId(response.get("id").toString());
-                }catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                System.out.println(error);
-                System.out.println("OTHER ERROR");
-            }
-        }) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                HashMap<String, String> headers = new HashMap<String, String>();
-                System.out.println(loggedInUser.getToken());
-                headers.put("Authorization", loggedInUser.getToken());
-                return headers;
-            }
-        };
-        byte [] body = req.getBody();
-        for(byte c: body){
-            System.out.print(((char)c));
-        }
-        System.out.print("");
-        System.out.println("reqbody:"+req.getBody());
-        queue.add(req);
-        while(!req.hasHadResponseDelivered());*/
         if(errorBool[0])throw new Exception();
         return new Result.Success<>(loggedInUser);
     }
