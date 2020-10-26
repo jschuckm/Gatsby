@@ -36,23 +36,6 @@ public class LoginDataSourceUnitTest {
         MockitoAnnotations.initMocks(this);
     }
 
-
-    @Test
-    public void login_fails_given_logintobackend_throws() {
-
-
-        assertEquals(4, 2 + 2);
-    }
-    /*@Test
-    public void callErrorListener_ifTimeout(){
-        when(myRequest.hasHadResponseDelivered()).thenReturn(false);
-        when(myRequest.getErrorListener()).thenReturn(errorListener);
-        loginDataSource.callErrorListenerIfTimeout(myRequest);
-
-
-        verify(myRequest,times(1)).getErrorListener();
-        verify(myRequest,times(40)).hasHadResponseDelivered();
-    }*/
     @Test
     public void dontcallErrorListener_ifNoTimeout(){
         when(myRequest.hasHadResponseDelivered()).thenReturn(true);

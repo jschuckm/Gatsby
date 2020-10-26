@@ -56,7 +56,7 @@ public class LoginDataSource {
     public JSONObject createReqBody(String username,String password) throws JSONException {
         return new JSONObject(" { \"username\":" + username + ", \"password\": " + password + "}");
     }
-    public MyRequest createLoginRequest(JSONObject reqBody, final LoggedInUser user, final Boolean[] errorBool){
+    public MyRequest createLoginRequest(JSONObject reqBody, final LoggedInUser user, final Boolean[] errorBool) throws Exception{
         return new MyRequest(Request.Method.POST,"http://coms-309-mc-07.cs.iastate.edu:8080/login", reqBody, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -74,7 +74,7 @@ public class LoginDataSource {
             }
         });
     }
-    public void callErrorListenerIfTimeout(MyRequest myRequest){
+    public void callErrorListenerIfTimeout(MyRequest myRequest) throws Exception{
         int count = 0;
         //separate
         while(!myRequest.hasHadResponseDelivered()){
