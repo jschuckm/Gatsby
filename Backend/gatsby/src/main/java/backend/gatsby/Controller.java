@@ -34,7 +34,7 @@ public class Controller {
 		return (List<AttendeeUser>) db.findAll();
 	}
 
-	@RequestMapping("/attendee")
+	@PostMapping("/attendee/getid")
 	AttendeeUser getByUserName(@RequestBody AttendeeUser a){
 		return db.findByUsername(a.getUsername());
 	}
@@ -54,6 +54,18 @@ public class Controller {
 	@PutMapping("/attendee/{id}")
 	AttendeeUser updateUser(@RequestBody AttendeeUser a, @PathVariable Integer id) {
 		AttendeeUser oldA = db.findById(id).get();
+		oldA.setName(a.getName());
+		oldA.setAge(a.getAge());
+		oldA.setAddress(a.getAddress());
+		oldA.setEmail(a.getEmail());
+		oldA.setUsername(a.getUsername());
+		oldA.setRating(a.getRating());
+		db.save(oldA);
+		return oldA;
+	}
+	@PutMapping("/attendee")
+	AttendeeUser updateUserByUsername(@RequestBody AttendeeUser a) {
+		AttendeeUser oldA = db.findByUsername(a.getUsername());
 		oldA.setName(a.getName());
 		oldA.setAge(a.getAge());
 		oldA.setAddress(a.getAddress());
