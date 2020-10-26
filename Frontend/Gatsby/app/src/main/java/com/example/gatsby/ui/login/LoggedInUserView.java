@@ -8,6 +8,7 @@ import java.io.Serializable;
 public class LoggedInUserView implements Serializable {
     private String displayName;
     private String authToken;
+    private String id;
     //... other data fields that may be accessible to the UI
 
     LoggedInUserView(String displayName, String authToken) {
@@ -15,11 +16,17 @@ public class LoggedInUserView implements Serializable {
         this.displayName = displayName;
     }
 
-    String getDisplayName() {
+    public String getDisplayName() {
         return displayName;
     }
 
     public String getAuthToken() {
         return authToken;
+    }
+    public String getId(){
+        return this.id;
+    }
+    public void setId(String id){
+        this.id = id;
     }
 }

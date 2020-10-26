@@ -3,6 +3,7 @@ package com.example.gatsby.ui.userinfo;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.text.Editable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,7 +55,7 @@ public class UserInfoFragment extends Fragment {
         final EditText Email = (EditText) root.findViewById(R.id.Email);
         final EditText Rating = (EditText) root.findViewById(R.id.Rating);
         Button Update = (Button) root.findViewById(R.id.Update);
-
+        Log.i("UserInfoFragment","InOnCreateView");
         Update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -64,8 +65,8 @@ public class UserInfoFragment extends Fragment {
 
                 RequestQueue requestQueue = Volley.newRequestQueue(root.getContext());
                 try {
-                    String url ="http://coms-309-mc-07.cs.iastate.edu:8080/attendee/"+i;
-                    i++;
+                    String url ="http://10.0.2.2:8080/attendee/"+MyApplication.getUser().getId();
+                    System.out.println("url:"+url);
                     JSONObject object = new JSONObject();
 
                     Editable name = Name.getText();
@@ -73,12 +74,11 @@ public class UserInfoFragment extends Fragment {
                     Editable location = Location.getText();
                     Editable email = Email.getText();
                     Editable rating = Rating.getText();
-                    JSONObject temp = new JSONObject(" { \"name\":"+name+", \"age\": "+age+", \"rating\":"+rating+", \"email\": "+email+", \"address\": "+location+" }");
+                    JSONObject temp = new JSONObject(" { \"name\":"+name+", \"age\": "+age+", \"rating\":"+rating+", \"email\": "+email+", \"address\": "+location+", \"username\": "+email+" }");
                     JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url, temp, new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
                             System.out.println("Works");
-
 
                         }
                     }, new Response.ErrorListener() {
@@ -103,7 +103,7 @@ public class UserInfoFragment extends Fragment {
 
         });
 
-        Button Post = (Button) root.findViewById(R.id.Post);
+        /*Button Post = (Button) root.findViewById(R.id.Post);
         Post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -146,7 +146,7 @@ public class UserInfoFragment extends Fragment {
                     e.printStackTrace();
                 }
             }
-        });
+        });*/
 
         Button Get = (Button) root.findViewById(R.id.Get);
         Get.setOnClickListener(new View.OnClickListener() {
@@ -154,11 +154,60 @@ public class UserInfoFragment extends Fragment {
             public void onClick(View view) {
                 System.out.println("click");
 
-                // Instantiate the RequestQueue.
+                // Instantiate the RequestQueue.*/
+        RequestQueue queue = Volley.newRequestQueue(root.getContext());
+        try {
+            String url ="http://10.0.2.2:8080/attendee/getid";
+            final JSONObject object = new JSONObject("{\"username\":"+MyApplication.getUser().getDisplayName()+"}");
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, object, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    try {
+                        System.out.println(response);
+                        MyApplication.getUser().setId(response.get("id").toString());
+                        Name.setText(response.get("name").toString());
+                        Age.setText(response.get("age").toString());
+                        Location.setText(response.get("address").toString());
+                        Email.setText(response.get("email").toString());
+                        Rating.setText(response.get("rating").toString());
+                    }
+                    catch(Exception e){
+                        System.out.println(e);
+                        System.out.println("ERROR");
+                    }
 
-                RequestQueue requestQueue = Volley.newRequestQueue(root.getContext());
+
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    System.out.println(error);
+                    System.out.println("OTHER ERROR");
+                }
+            }){
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    HashMap<String, String> headers = new HashMap<String, String>();
+                    System.out.println(MyApplication.getUser().getAuthToken());
+                    headers.put("Authorization", MyApplication.getUser().getAuthToken());
+                    /*headers.put("Content-Type","application/json");
+                    headers.put("Content-Length",""+object.length());
+                    headers.put("accept","*///*");
+                    /*headers.put("Accept-Encoding","gzip,deflate,br");
+                    headers.put("Connection","keep-alive");*/
+                    return headers;
+                }};
+            queue.add(jsonObjectRequest);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+
+                /*RequestQueue requestQueue = Volley.newRequestQueue(root.getContext());
                 try {
-                    String url ="http://coms-309-mc-07.cs.iastate.edu:8080/attendees";
+                    String url ="http://10.0.2.2:8080/attendee/"+MyApplication.getUser().getDisplayName();
                     JSONObject object = new JSONObject();
                     JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
                         @Override
@@ -199,7 +248,7 @@ public class UserInfoFragment extends Fragment {
                     requestQueue.add(jsonArrayRequest);
                 } catch (Exception e) {
                     e.printStackTrace();
-                }
+                }*/
             }
         });
 

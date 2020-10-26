@@ -97,7 +97,7 @@ public class LoginDataSource {
             Log.e("DataSource",e.toString());
             return new Result.Error(e);
         }*/
-        MyRequest myRequest = new MyRequest(Request.Method.POST,"http://10.0.2.2:8080/login", temp, new Response.Listener<JSONObject>() {
+        MyRequest myRequest = new MyRequest(Request.Method.POST,"http://coms-309-mc-07.cs.iastate.edu:8080/login", temp, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 System.out.println("response:"+response);
