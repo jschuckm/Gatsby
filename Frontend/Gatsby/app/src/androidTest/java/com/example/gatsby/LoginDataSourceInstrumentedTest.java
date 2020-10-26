@@ -1,13 +1,11 @@
 package com.example.gatsby;
 
 import android.content.Context;
-import android.support.v4.media.MediaMetadataCompat;
 import android.util.Log;
 
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
-import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -15,7 +13,6 @@ import com.example.gatsby.data.LoginDataSource;
 import com.example.gatsby.data.Result;
 import com.example.gatsby.data.model.LoggedInUser;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;

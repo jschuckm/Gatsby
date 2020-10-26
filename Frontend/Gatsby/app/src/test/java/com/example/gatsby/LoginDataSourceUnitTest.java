@@ -37,7 +37,7 @@ public class LoginDataSourceUnitTest {
     }
 
     @Test
-    public void dontcallErrorListener_ifNoTimeout(){
+    public void dontcallErrorListener_ifNoTimeout() throws Exception {
         when(myRequest.hasHadResponseDelivered()).thenReturn(true);
         loginDataSource.callErrorListenerIfTimeout(myRequest);
 
