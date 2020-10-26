@@ -65,7 +65,7 @@ public class UserInfoFragment extends Fragment {
 
                 RequestQueue requestQueue = Volley.newRequestQueue(root.getContext());
                 try {
-                    String url ="http://10.0.2.2:8080/attendee/"+MyApplication.getUser().getId();
+                    String url ="http://coms-309-mc-07.cs.iastate.edu:8080/attendee/"+MyApplication.getUser().getId();
                     System.out.println("url:"+url);
                     JSONObject object = new JSONObject();
 
@@ -157,7 +157,7 @@ public class UserInfoFragment extends Fragment {
                 // Instantiate the RequestQueue.*/
         RequestQueue queue = Volley.newRequestQueue(root.getContext());
         try {
-            String url ="http://10.0.2.2:8080/attendee/getid";
+            String url ="http://coms-309-mc-07.cs.iastate.edu:8080/attendee/getid";
             final JSONObject object = new JSONObject("{\"username\":"+MyApplication.getUser().getDisplayName()+"}");
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, object, new Response.Listener<JSONObject>() {
                 @Override
