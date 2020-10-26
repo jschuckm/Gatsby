@@ -2,11 +2,12 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ListingLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.eventListing.EventListingFragment">
 
-    <EditText
+    <TextView
         android:id="@+id/Event4"
         android:layout_width="180dp"
         android:layout_height="50dp"
@@ -15,6 +16,7 @@
         android:layout_marginEnd="119dp"
         android:layout_marginRight="119dp"
         android:layout_marginBottom="228dp"
+        android:gravity="center"
         android:hint="Event4"
         android:textSize="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -49,7 +51,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <EditText
+    <TextView
         android:id="@+id/Event2"
         android:layout_width="180dp"
         android:layout_height="50dp"
@@ -58,13 +60,14 @@
         android:layout_marginEnd="119dp"
         android:layout_marginRight="119dp"
         android:layout_marginBottom="412dp"
+        android:gravity="center"
         android:hint="Event2"
         android:textSize="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <EditText
+    <TextView
         android:id="@+id/Host2"
         android:layout_width="80dp"
         android:layout_height="50dp"
@@ -73,13 +76,14 @@
         android:layout_marginEnd="323dp"
         android:layout_marginRight="323dp"
         android:layout_marginBottom="409dp"
+        android:gravity="center"
         android:hint="Host2"
         android:textSize="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <EditText
+    <TextView
         android:id="@+id/Event3"
         android:layout_width="180dp"
         android:layout_height="50dp"
@@ -88,13 +92,14 @@
         android:layout_marginEnd="119dp"
         android:layout_marginRight="119dp"
         android:layout_marginBottom="322dp"
+        android:gravity="center"
         android:hint="Event3"
         android:textSize="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <EditText
+    <TextView
         android:id="@+id/Host3"
         android:layout_width="80dp"
         android:layout_height="50dp"
@@ -103,6 +108,7 @@
         android:layout_marginEnd="323dp"
         android:layout_marginRight="323dp"
         android:layout_marginBottom="322dp"
+        android:gravity="center"
         android:hint="Host3"
         android:textSize="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -123,7 +129,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <EditText
+    <TextView
         android:id="@+id/Host4"
         android:layout_width="80dp"
         android:layout_height="50dp"
@@ -132,6 +138,7 @@
         android:layout_marginEnd="323dp"
         android:layout_marginRight="323dp"
         android:layout_marginBottom="228dp"
+        android:gravity="center"
         android:hint="Host4"
         android:textSize="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -173,23 +180,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="26dp"
-        android:layout_marginLeft="26dp"
-        android:layout_marginTop="77dp"
-        android:layout_marginEnd="334dp"
-        android:layout_marginRight="334dp"
-        android:layout_marginBottom="622dp"
-        android:text="Host"
-        android:textSize="24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -199,7 +189,7 @@
         android:layout_marginEnd="334dp"
         android:layout_marginRight="334dp"
         android:layout_marginBottom="622dp"
-        android:text="Host"
+        android:text="Fee"
         android:textColor="@android:color/black"
         android:textSize="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -221,7 +211,7 @@
         android:orientation="vertical"
         app:layout_constraintGuide_begin="315dp" />
 
-    <EditText
+    <TextView
         android:id="@+id/Event1"
         android:layout_width="180dp"
         android:layout_height="50dp"
@@ -230,6 +220,7 @@
         android:layout_marginEnd="119dp"
         android:layout_marginRight="119dp"
         android:layout_marginBottom="500dp"
+        android:gravity="center"
         android:hint="Event1"
         android:textSize="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -237,7 +228,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <EditText
+    <TextView
         android:id="@+id/Host1"
         android:layout_width="80dp"
         android:layout_height="50dp"
@@ -246,6 +237,7 @@
         android:layout_marginEnd="323dp"
         android:layout_marginRight="323dp"
         android:layout_marginBottom="505dp"
+        android:gravity="center"
         android:hint="Host1"
         android:textSize="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
