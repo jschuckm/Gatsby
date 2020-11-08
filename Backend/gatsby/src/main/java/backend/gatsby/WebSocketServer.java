@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 @ServerEndpoint("/websocket/{id}")
-public class WebSocketServer {
+public class WebSocketServer {/*
 	private static Map<Session, Integer> sessionIdMap = new Hashtable<>();
 	private static Map<Integer, Session> idSessionMap = new Hashtable<>();
 	
@@ -39,19 +39,47 @@ public class WebSocketServer {
 		logger.info("Entered new message: " + message);
 		int id = sessionIdMap.get(session);
 		
-		sendMessageToAParticularUser(destUserId, message);
+		sendMessageToParticularUser(destUserId, message);
+		sendMessageToParticularUser(id, message);
 		
 		
 	}
 
-	private void sendMessageToPArticularUser(int id, String message)
-    {
-    	  try {
+	private void sendMessageToParticularUser(int id, String message){
+		try {
     		  idSessionMap.get(id).getBasicRemote().sendText(message);
         } catch (IOException e) {
         	logger.info("Exception: " + e.getMessage().toString());
           e.printStackTrace();
         }
     }
+	
+	@OnClose
+	public void onClose(Session session) throws IOException
+    {
+    	logger.info("Entered into Close");
 
+    	int id = sessionIdMap.get(session);
+    	sessionIdMap.remove(session);
+    	idSessionMap.remove(id);
+
+    	String message= id + " disconnected";
+        broadcast(message);
+    }
+	
+	private void broadcast(String message){
+		  sessionIdMap.forEach((session, username)->{
+			try {
+						session.getBasicRemote().sendText(message);
+			} catch (IOException e) {
+						logger.info("Exception: " + e.getMessage().toString());
+							e.printStackTrace();
+			}
+		});
+
+}
+
+
+
+*/
 }
