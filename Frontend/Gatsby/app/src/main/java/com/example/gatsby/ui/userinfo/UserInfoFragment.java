@@ -38,9 +38,7 @@ import java.util.Map;
 public class UserInfoFragment extends Fragment {
 
     private UserInfoViewModel UserInfoViewModel;
-    final EditTextFields editTextFields = new EditTextFields();
-    Button Update;
-    Integer i = 1;
+    public final EditTextFields editTextFields = new EditTextFields();
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         UserInfoViewModel =
@@ -58,27 +56,7 @@ public class UserInfoFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 System.out.println("click");
-
-                // Instantiate the RequestQueue.
-
-                RequestQueue requestQueue = Volley.newRequestQueue(root.getContext());
-                try {
-                    String url ="http://coms-309-mc-07.cs.iastate.edu:8080/attendee/"+MyApplication.getUser().getId();
-                    System.out.println("url:"+url);
-                    JSONObject object = new JSONObject();
-
-                    Editable name = editTextFields.getName().getText();
-                    Editable age = editTextFields.getAge().getText();
-                    Editable location = editTextFields.getLocation().getText();
-                    Editable email = editTextFields.getEmail().getText();
-                    Editable rating = editTextFields.getRating().getText();
-
-                    JSONObject temp = createReqBodyUpdate(name.toString(),age.toString(),rating.toString(),email.toString(),location.toString());
-                    JsonObjectRequest jsonObjectRequest = createUpdateRequest(url,temp);
-                    requestQueue.add(jsonObjectRequest);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                sendUpdateRequest(root);
             }
 
         });
@@ -88,21 +66,31 @@ public class UserInfoFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 System.out.println("click");
-
-                    // Instantiate the RequestQueue.*/
-            RequestQueue queue = Volley.newRequestQueue(root.getContext());
-            try {
-                String url ="http://coms-309-mc-07.cs.iastate.edu:8080/attendee/getid";
-                final JSONObject object = createReqBodyGet();
-                JsonObjectRequest jsonObjectRequest = createGetReq(url,object);
-                queue.add(jsonObjectRequest);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+                sendGetRequest(root);
             }
         });
 
         return root;
+    }
+    public void sendUpdateRequest(View root){
+        RequestQueue requestQueue = Volley.newRequestQueue(root.getContext());
+        try {
+            String url ="http://coms-309-mc-07.cs.iastate.edu:8080/attendee/"+MyApplication.getUser().getId();
+            System.out.println("url:"+url);
+            JSONObject object = new JSONObject();
+
+            Editable name = editTextFields.getName().getText();
+            Editable age = editTextFields.getAge().getText();
+            Editable location = editTextFields.getLocation().getText();
+            Editable email = editTextFields.getEmail().getText();
+            Editable rating = editTextFields.getRating().getText();
+
+            JSONObject temp = createReqBodyUpdate(name.toString(),age.toString(),rating.toString(),email.toString(),location.toString());
+            JsonObjectRequest jsonObjectRequest = createUpdateRequest(url,temp);
+            requestQueue.add(jsonObjectRequest);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     public JSONObject createReqBodyUpdate(String name, String age, String rating, String email, String location) throws JSONException {
         return new JSONObject(" { \"name\":"+name+", \"age\": "+age+", \"rating\":"+rating+", \"email\": "+email+", \"address\": "+location+", \"username\": "+email+" }");
@@ -128,6 +116,17 @@ public class UserInfoFragment extends Fragment {
                 headers.put("Authorization", MyApplication.getUser().getAuthToken());
                 return headers;
             }};
+    }
+    public void sendGetRequest(View root){
+        RequestQueue queue = Volley.newRequestQueue(root.getContext());
+        try {
+            String url ="http://coms-309-mc-07.cs.iastate.edu:8080/attendee/getid";
+            final JSONObject object = createReqBodyGet();
+            JsonObjectRequest jsonObjectRequest = createGetReq(url,object);
+            queue.add(jsonObjectRequest);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     public JSONObject createReqBodyGet() throws JSONException {
         return new JSONObject("{\"username\":"+MyApplication.getUser().getDisplayName()+"}");

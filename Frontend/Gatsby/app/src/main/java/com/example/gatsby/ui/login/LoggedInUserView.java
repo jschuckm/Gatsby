@@ -11,7 +11,7 @@ public class LoggedInUserView implements Serializable {
     private String id;
     //... other data fields that may be accessible to the UI
 
-    LoggedInUserView(String displayName, String authToken) {
+    public LoggedInUserView(String displayName, String authToken) {
         this.authToken = authToken;
         this.displayName = displayName;
     }
