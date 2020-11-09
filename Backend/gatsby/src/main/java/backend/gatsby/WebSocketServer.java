@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 @ServerEndpoint("/websocket/{id}")
-public class WebSocketServer {/*
+public class WebSocketServer {
 	private static Map<Session, Integer> sessionIdMap = new Hashtable<>();
 	private static Map<Integer, Session> idSessionMap = new Hashtable<>();
 	
@@ -81,5 +81,5 @@ public class WebSocketServer {/*
 
 
 
-*/
+
 }
