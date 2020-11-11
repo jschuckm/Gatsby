@@ -39,6 +39,14 @@ public class UserInfoFragment extends Fragment {
 
     private UserInfoViewModel UserInfoViewModel;
     public final EditTextFields editTextFields = new EditTextFields();
+
+    /**
+     * Method that executes when the UserInfoFragment view is created. This is like the main method of the screen.
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         UserInfoViewModel =
@@ -72,6 +80,11 @@ public class UserInfoFragment extends Fragment {
 
         return root;
     }
+
+    /**
+     * Executes everything necessary to send an update request and to the /attendee/{id of user}.
+     * @param root
+     */
     public void sendUpdateRequest(View root){
         RequestQueue requestQueue = Volley.newRequestQueue(root.getContext());
         try {
@@ -92,9 +105,27 @@ public class UserInfoFragment extends Fragment {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Returns JSONObject for the body of the request to the update method.
+     * @param name name of user
+     * @param age age of user
+     * @param rating rating of user
+     * @param email email of user
+     * @param location location of user
+     * @return JSONObject
+     * @throws JSONException
+     */
     public JSONObject createReqBodyUpdate(String name, String age, String rating, String email, String location) throws JSONException {
         return new JSONObject(" { \"name\":"+name+", \"age\": "+age+", \"rating\":"+rating+", \"email\": "+email+", \"address\": "+location+", \"username\": "+email+" }");
     }
+
+    /**
+     * Returns a JSONObjectRequest which is the put request to the specified url with the specified body.
+     * @param url the url of the request
+     * @param temp the body of the request
+     * @return JSONObjectRequest
+     */
     public JsonObjectRequest createUpdateRequest(String url, JSONObject temp){
         return new JsonObjectRequest(Request.Method.PUT, url, temp, new Response.Listener<JSONObject>() {
             @Override
@@ -117,6 +148,11 @@ public class UserInfoFragment extends Fragment {
                 return headers;
             }};
     }
+
+    /**
+     * Executes everything necessary to send a get request to the backend.
+     * @param root
+     */
     public void sendGetRequest(View root){
         RequestQueue queue = Volley.newRequestQueue(root.getContext());
         try {
@@ -128,9 +164,22 @@ public class UserInfoFragment extends Fragment {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Returns JSONObject for the body of the request to the get method.
+     * @return JSONObject
+     * @throws JSONException
+     */
     public JSONObject createReqBodyGet() throws JSONException {
         return new JSONObject("{\"username\":"+MyApplication.getUser().getDisplayName()+"}");
     }
+
+    /**
+     * Returns JSONObjectRequest for the get method.
+     * @param url url of the request
+     * @param object body of the request
+     * @return
+     */
     public JsonObjectRequest createGetReq(String url, JSONObject object){
         return new JsonObjectRequest(Request.Method.POST, url, object, new Response.Listener<JSONObject>() {
             @Override

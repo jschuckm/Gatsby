@@ -22,6 +22,13 @@ import static android.os.SystemClock.sleep;
  */
 public class LoginDataSource {
     LoggedInUser loggedInUser;
+
+    /**
+     * Returns a result object that is either success or error and contains a message or the LoggedInUser.
+     * @param username the username of the user
+     * @param password the password of the user
+     * @return Result<LoggedInUser>
+     */
     public Result<LoggedInUser> login(String username, String password) {
         Log.i("LoginMethod","In Login");
         try {
@@ -33,10 +40,19 @@ public class LoginDataSource {
         }
     }
 
+
     public void logout() {
         // TODO: revoke authentication
     }
 
+    /**
+     * Helper method created a volley queue and calls other helper method in order to send a login
+     * request to backend.
+     * @param username the username of the user
+     * @param password the password of the user
+     * @return Result<LoggedInUser>
+     * @throws Exception
+     */
     public Result<LoggedInUser> loginToBackend(String username, String password) throws Exception{
         Log.i("LoginToBackend","In login to backend");
         final RequestQueue queue = Volley.newRequestQueue(MyApplication.getAppContext());
@@ -53,9 +69,25 @@ public class LoginDataSource {
         return new Result.Success<>(loggedInUser);
     }
 
+    /**
+     * Returns a JSONObject which is the body of the request to login.
+     * @param username the username of the user
+     * @param password the password of the user
+     * @return JSONObject
+     * @throws JSONException
+     */
     public JSONObject createReqBody(String username,String password) throws JSONException {
         return new JSONObject(" { \"username\":" + username + ", \"password\": " + password + "}");
     }
+
+    /**
+     * Returns a MyRequest object which is just a custom request object similar to JSONObjectRequest. This request calls the /login method on backend.
+     * @param reqBody the body of the request created in createReqBody
+     * @param user the LoggedInUser object to be updated
+     * @param errorBool the Boolean array to be updated if an error occurs
+     * @return MyRequest
+     * @throws Exception
+     */
     public MyRequest createLoginRequest(JSONObject reqBody, final LoggedInUser user, final Boolean[] errorBool) throws Exception{
         return new MyRequest(Request.Method.POST,"http://coms-309-mc-07.cs.iastate.edu:8080/login", reqBody, new Response.Listener<JSONObject>() {
             @Override
@@ -74,6 +106,12 @@ public class LoginDataSource {
             }
         });
     }
+
+    /**
+     * Throws an exception if it takes too long to login.
+     * @param myRequest the MyRequest object used to make the request to backend
+     * @throws Exception
+     */
     public void callErrorListenerIfTimeout(MyRequest myRequest) throws Exception{
         int count = 0;
         //separate
