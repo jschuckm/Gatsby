@@ -16,38 +16,38 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-@ServerEndpoint("/websocket/{id}")
+@ServerEndpoint("/websocket/{username}")
+@Component
 public class WebSocketServer {
-	private static Map<Session, Integer> sessionIdMap = new Hashtable<>();
-	private static Map<Integer, Session> idSessionMap = new Hashtable<>();
+	private static Map<Session, String> sessionUsernameMap = new Hashtable<>();
+	private static Map<String, Session> usernameSessionMap = new Hashtable<>();
 	
 	private final Logger logger = LoggerFactory.getLogger(WebSocketServer.class);
 	
 	@OnOpen
-	public void onOpen(Session session, @PathParam("id") Integer id) throws IOException{
+	public void onOpen(Session session, @PathParam("username") String username) throws IOException{
 		logger.info("Entered into Open");
 		
-		sessionIdMap.put(session, id);
-		idSessionMap.put(id, session);
+		sessionUsernameMap.put(session, username);
+		usernameSessionMap.put(username, session);
 		
-		String message = "User: " + id + " has joined the chat";
-		
+		String message = "User: " + username + " has joined the chat";
+		broadcast(message);
 	}
 	
 	@OnMessage
-	public void onMessage(Session session, String message, int destUserId) throws IOException{
+	public void onMessage(Session session, String message) throws IOException{
 		logger.info("Entered new message: " + message);
-		int id = sessionIdMap.get(session);
+		String username = sessionUsernameMap.get(session);
 		
-		sendMessageToParticularUser(destUserId, message);
-		sendMessageToParticularUser(id, message);
-		
-		
+		//sendMessageToParticularUser(destUser, message);
+		sendMessageToParticularUser(username, message);
+		broadcast(message);		
 	}
 
-	private void sendMessageToParticularUser(int id, String message){
+	private void sendMessageToParticularUser(String username, String message){
 		try {
-    		  idSessionMap.get(id).getBasicRemote().sendText(message);
+    		  usernameSessionMap.get(username).getBasicRemote().sendText(message);
         } catch (IOException e) {
         	logger.info("Exception: " + e.getMessage().toString());
           e.printStackTrace();
@@ -59,16 +59,16 @@ public class WebSocketServer {
     {
     	logger.info("Entered into Close");
 
-    	int id = sessionIdMap.get(session);
-    	sessionIdMap.remove(session);
-    	idSessionMap.remove(id);
+    	String username = sessionUsernameMap.get(session);
+    	sessionUsernameMap.remove(session);
+    	usernameSessionMap.remove(username);
 
-    	String message= id + " disconnected";
+    	String message= username + " disconnected";
         broadcast(message);
     }
 	
 	private void broadcast(String message){
-		  sessionIdMap.forEach((session, username)->{
+		  sessionUsernameMap.forEach((session, username)->{
 			try {
 						session.getBasicRemote().sendText(message);
 			} catch (IOException e) {
@@ -76,10 +76,12 @@ public class WebSocketServer {
 							e.printStackTrace();
 			}
 		});
-
-}
-
-
-
+	}
+	
+	@OnError
+	public void onError(Session session, Throwable throwable){
+	    // Do error handling here
+	    logger.info("Entered into Error");
+	}
 
 }
