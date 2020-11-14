@@ -18,5 +18,10 @@
             android:icon="@drawable/ic_menu_slideshow"
             android:title = "User Info" />
 
+        <item
+            android:id="@+id/nav_websocket"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title = "Websocket" />
+
     </group>
 </menu>
