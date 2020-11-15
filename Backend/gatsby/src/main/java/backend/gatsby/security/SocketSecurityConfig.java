@@ -1,4 +1,4 @@
-package backend.gatsby;
+package backend.gatsby.security;
 
 import org.springframework.security.config.annotation.web.messaging.MessageSecurityMetadataSourceRegistry;
 import org.springframework.security.config.annotation.web.socket.AbstractSecurityWebSocketMessageBrokerConfigurer;

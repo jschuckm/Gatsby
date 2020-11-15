@@ -1,12 +1,17 @@
-package backend.gatsby;
+package backend.gatsby.controllers;
 
 import java.util.List;
+
+import backend.gatsby.entities.Event;
+import backend.gatsby.repositories.AttendeeDatabase;
+import backend.gatsby.entities.AttendeeUser;
+import backend.gatsby.services.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,17 +22,40 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class Controller {
 
 	@Autowired
-	AttendeeDatabase db;
+    AttendeeDatabase db;
 
 	@Autowired
 	BCryptPasswordEncoder bCryptPasswordEncoder;
+
+	@Autowired
+	EventService eventService;
 	
 	@RequestMapping("/attendee/{id}")
-	AttendeeUser getUser(@PathVariable Integer id) {
+    AttendeeUser getUser(@PathVariable Integer id) {
 		AttendeeUser result = db.findById(id).get();
 		return result;
 	}
-	
+	@PostMapping("/attendee/registerevent/{eventId}")
+	ResponseEntity registerForEvent(@PathVariable int eventId, @RequestBody AttendeeUser a){
+		AttendeeUser user = db.findByUsername(a.getUsername());
+		Event event;
+		try {
+			event = eventService.getEventById(eventId);
+		}catch(Exception e){
+			return new ResponseEntity(HttpStatus.BAD_REQUEST);
+		}
+		if(!user.eventsAttending.contains(event)) {
+			user.eventsAttending.add(event);
+			event.attendees.add(user);
+		}else{
+			return new ResponseEntity((HttpStatus.BAD_REQUEST));
+		}
+		db.save(user);
+		eventService.save(event);
+		return new ResponseEntity(user,HttpStatus.OK);
+	}
+
+
 	@RequestMapping("/attendees")
 	List<AttendeeUser> getAll()
 	{

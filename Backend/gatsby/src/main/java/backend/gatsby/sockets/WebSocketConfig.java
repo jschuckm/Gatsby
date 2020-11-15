@@ -1,4 +1,4 @@
-package backend.gatsby;
+package backend.gatsby.sockets;
 
 import javax.servlet.ServletContext;
 

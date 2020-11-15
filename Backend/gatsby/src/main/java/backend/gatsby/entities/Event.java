@@ -1,15 +1,14 @@
-package backend.gatsby;
+package backend.gatsby.entities;
 
 import java.util.List;
 
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Table(name = "event")
 @Entity
@@ -56,7 +55,10 @@ public class Event {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "host_id")
 	private HostUser hostProfile;
-	
+
+	@ManyToMany(mappedBy = "eventsAttending")
+	public Set<AttendeeUser> attendees;
+
 	/**
 	 * Address of Event
 	 */
@@ -179,4 +181,13 @@ public class Event {
 	public void setCapacity(int c) {
 		capacity = c;
 	}
+
+	public Set<AttendeeUser> getAttendees() {
+		return attendees;
+	}
+
+	public void setAttendees(Set<AttendeeUser> attendees) {
+		this.attendees = attendees;
+	}
+
 }

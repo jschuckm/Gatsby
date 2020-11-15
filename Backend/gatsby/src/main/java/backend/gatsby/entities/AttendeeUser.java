@@ -1,6 +1,7 @@
-package backend.gatsby;
+package backend.gatsby.entities;
 
 import java.util.List;
+import java.util.Set;
 import javax.persistence.*;
 
 @Table(name = "attendee")
@@ -12,8 +13,8 @@ public class AttendeeUser {
 	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column
-	Integer id;
+	@Column(name="id")
+	Integer attendee_id;
 
 	/**
 	 * Name of User
@@ -44,7 +45,15 @@ public class AttendeeUser {
 	 */
 	@Column(nullable = false)
 	private String password;
-	
+
+	@ManyToMany
+	@JoinTable(
+			name = "events_attending",
+			joinColumns = @JoinColumn(name = "attendee_id"),
+			inverseJoinColumns = @JoinColumn(name = "id"))
+	public Set<Event> eventsAttending;
+
+
 	/**
 	 * Address of User
 	 */
@@ -155,13 +164,21 @@ public class AttendeeUser {
 	 * @return user's id
 	 */
 	public Integer getId() {
-		return id;
+		return attendee_id;
 	}
 	/**
 	 * Sets id of user
 	 * @param id new id
 	 */
 	public void setId(Integer id) {
-		this.id = id;
+		this.attendee_id = id;
+	}
+
+	public Set<Event> getEventsAttending() {
+		return eventsAttending;
+	}
+
+	public void setEventsAttending(Set<Event> eventsAttending) {
+		this.eventsAttending = eventsAttending;
 	}
 }

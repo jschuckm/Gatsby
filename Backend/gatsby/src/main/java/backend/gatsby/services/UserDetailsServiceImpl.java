@@ -1,6 +1,8 @@
-package backend.gatsby;
+package backend.gatsby.services;
 
 
+import backend.gatsby.entities.AttendeeUser;
+import backend.gatsby.repositories.AttendeeDatabase;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

@@ -1,22 +1,12 @@
 package backend.gatsby;
 
-import backend.gatsby.AttendeeUser;
-import backend.gatsby.AttendeeDatabase;
-import backend.gatsby.Controller;
-import backend.gatsby.ControllerEvent;
-import backend.gatsby.ControllerHost;
-import backend.gatsby.Event;
-import backend.gatsby.EventDatabase;
-import backend.gatsby.HostDatabase;
-import backend.gatsby.HostUser;
-
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
-import org.json.JSONObject;
 //import junit/spring tests
+import backend.gatsby.entities.HostUser;
+import backend.gatsby.repositories.EventDatabase;
+import backend.gatsby.repositories.HostDatabase;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +19,6 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -42,8 +31,6 @@ import org.springframework.http.MediaType;
 import static org.mockito.Mockito.when;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.any;
-import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.Matchers.*;
 import static org.hamcrest.Matchers.is;
 
 
