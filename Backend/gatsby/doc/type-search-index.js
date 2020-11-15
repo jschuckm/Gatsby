@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"backend.gatsby","l":"AttendeeUser"},{"p":"backend.gatsby","l":"Event"},{"p":"backend.gatsby","l":"HostUser"}]

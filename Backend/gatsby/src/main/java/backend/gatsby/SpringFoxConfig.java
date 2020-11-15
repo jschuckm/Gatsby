@@ -23,7 +23,7 @@ public class SpringFoxConfig {
 		return new Docket(DocumentationType.SWAGGER_2)
 				.apiInfo(apiInfo())
 				.select()
-				.apis(RequestHandlerSelectors.basePackage("myProject"))
+				.apis(RequestHandlerSelectors.basePackage("backend.gatsby"))
 				.paths(PathSelectors.any())
 				.build();
 	}
