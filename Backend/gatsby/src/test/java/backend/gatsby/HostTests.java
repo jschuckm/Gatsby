@@ -49,7 +49,7 @@ import static org.hamcrest.Matchers.is;
 
 @RunWith(SpringRunner.class)
 @ComponentScan(basePackages = {"backend.gatsby"})
-@SpringBootTest
+@SpringBootTest(classes = GatsbyApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc(addFilters = false)
 public class HostTests {
 	@Autowired
@@ -96,65 +96,12 @@ public class HostTests {
 		h.setAge(35);
 		h.setEmail("joe@gmail.com");
 		h.setRating((float) 4.7);
-		//l.add(h);	
 		
 		controller.perform(post("/host").contentType(MediaType.APPLICATION_JSON).content(asJsonString(h)))
 		.andExpect(status().isOk())
 		.andExpect(jsonPath("$.name", is(h.getName())))
 		.andExpect(jsonPath("$.age", is(h.getAge())));
 	}
-	
-	/*@Test
-	public void testAddEvent() throws Exception {
-		List<HostUser> hostList = new ArrayList<HostUser>();
-		when(hostDB.save((HostUser)any(HostUser.class)))
-		.thenAnswer(x-> {
-			HostUser h = x.getArgument(0);
-			hostList.add(h);
-			return h;
-		});
-		
-		HostUser h = new HostUser();
-		h.setName("Joe");
-		h.setAddress("Ames");
-		h.setAge(35);
-		h.setEmail("joe@gmail.com");
-		h.setRating((float) 4.7);
-		hostList.add(h);	
-		
-		List<Event> eventList = new ArrayList<Event>();
-		when(eventDB.save((Event)any(Event.class)))
-		.thenAnswer(x-> {
-			Event e = x.getArgument(0);
-			eventList.add(e);
-			return e;
-		});
-		
-		Event e = new Event();
-		e.setAddress("Ames");
-		e.setCapacity(50);
-		e.setDate(null);
-		e.setFee((float)20.95);
-		e.setHost(null);
-		e.setIsPublic(true);
-		e.setName("Joe's Birthday");
-		eventList.add(e);
-		
-		Event e2 = new Event();
-		e2.setAddress("Iowa");
-		e2.setCapacity(75);
-		e2.setDate(null);
-		e2.setFee((float)30);
-		e2.setHost(null);
-		e2.setIsPublic(false);
-		e2.setName("Pool Party");
-		eventList.add(e2);
-		
-		controller.perform(post("/host/0/events/0").contentType(MediaType.APPLICATION_JSON).content(asJsonString(e)))
-		.andExpect(status().isOk())
-		.andExpect(jsonPath("$.name", is(h.getName())))
-		.andExpect(jsonPath("$.eventsHostedHistory", is(h.getEventsHostedHistory())));
-	}*/
 	
 	public static String asJsonString(final Object obj) {
         try {

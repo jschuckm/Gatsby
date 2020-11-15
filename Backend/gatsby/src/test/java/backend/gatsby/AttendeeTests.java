@@ -49,8 +49,10 @@ import static org.hamcrest.Matchers.is;
 
 @RunWith(SpringRunner.class)
 @ComponentScan(basePackages = {"backend.gatsby"})
-@SpringBootTest
+@SpringBootTest(classes = GatsbyApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc(addFilters = false)
+//@WebMvcTest(ControllerEvent.class)
+//@WebAppConfiguration
 public class AttendeeTests {
 	@Autowired
 	private MockMvc controller;
@@ -98,7 +100,6 @@ public class AttendeeTests {
 		a.setAge(35);
 		a.setEmail("joe@gmail.com");
 		a.setRating(4.7);
-		//l.add(a);	
 		
 		controller.perform(post("/attendee").contentType(MediaType.APPLICATION_JSON).content(asJsonString(a)))
 		.andExpect(status().isOk())
