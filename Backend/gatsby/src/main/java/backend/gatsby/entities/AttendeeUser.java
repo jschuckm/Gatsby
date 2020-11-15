@@ -1,7 +1,6 @@
 package backend.gatsby.entities;
 
 import java.util.List;
-import java.util.Set;
 import javax.persistence.*;
 
 @Table(name = "attendee")
@@ -51,7 +50,7 @@ public class AttendeeUser {
 			name = "events_attending",
 			joinColumns = @JoinColumn(name = "attendee_id"),
 			inverseJoinColumns = @JoinColumn(name = "id"))
-	public Set<Event> eventsAttending;
+	public List<Event> eventsAttending;
 
 
 	/**
@@ -174,11 +173,11 @@ public class AttendeeUser {
 		this.attendee_id = id;
 	}
 
-	public Set<Event> getEventsAttending() {
+	public List<Event> getEventsAttending() {
 		return eventsAttending;
 	}
 
-	public void setEventsAttending(Set<Event> eventsAttending) {
+	public void setEventsAttending(List<Event> eventsAttending) {
 		this.eventsAttending = eventsAttending;
 	}
 }

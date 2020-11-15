@@ -3,7 +3,6 @@ package backend.gatsby.entities;
 import java.util.List;
 
 import java.util.Date;
-import java.util.Set;
 
 import javax.persistence.*;
 
@@ -57,7 +56,7 @@ public class Event {
 	private HostUser hostProfile;
 
 	@ManyToMany(mappedBy = "eventsAttending")
-	public Set<AttendeeUser> attendees;
+	public List<AttendeeUser> attendees;
 
 	/**
 	 * Address of Event
@@ -182,11 +181,11 @@ public class Event {
 		capacity = c;
 	}
 
-	public Set<AttendeeUser> getAttendees() {
+	public List<AttendeeUser> getAttendees() {
 		return attendees;
 	}
 
-	public void setAttendees(Set<AttendeeUser> attendees) {
+	public void setAttendees(List<AttendeeUser> attendees) {
 		this.attendees = attendees;
 	}
 
