@@ -41,8 +41,17 @@ public class WebSocketServer {
 		String username = sessionUsernameMap.get(session);
 		
 		//sendMessageToParticularUser(destUser, message);
-		sendMessageToParticularUser(username, message);
-		broadcast(message);		
+		//sendMessageToParticularUser(username, message);
+		if (message.startsWith("@")) // Direct message to a user using the format "@username <message>"
+    	{
+    		String destUsername = message.split(" ")[0].substring(1); // don't do this in your code!
+    		sendMessageToParticularUser(destUsername, "[DM] " + username + ": " + message);
+    		sendMessageToParticularUser(username, "[DM] " + username + ": " + message);
+    	}
+    	else // Message to whole chat
+    	{
+	    	broadcast(username + ": " + message);
+    	}
 	}
 
 	private void sendMessageToParticularUser(String username, String message){

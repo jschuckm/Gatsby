@@ -49,10 +49,10 @@ import static org.hamcrest.Matchers.is;
 
 @RunWith(SpringRunner.class)
 @ComponentScan(basePackages = {"backend.gatsby"})
-@SpringBootTest
+@SpringBootTest(classes = GatsbyApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc(addFilters = false)
 //@WebMvcTest(ControllerEvent.class)
-@WebAppConfiguration
+//@WebAppConfiguration
 public class GatsbyApplicationTests {
 
 	@Autowired
