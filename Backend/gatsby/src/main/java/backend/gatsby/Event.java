@@ -3,6 +3,7 @@ package backend.gatsby;
 import java.util.List;
 
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -14,12 +15,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Table(name = "event")
 @Entity
 public class Event {
-	
+
 	/**
 	 * Unique identifier between Events
 	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
 	Integer id;
     
 	/**
@@ -44,6 +46,9 @@ public class Event {
 	@Column
 	@ElementCollection
 	private List<String> applicants;
+
+	@ManyToMany(mappedBy = "eventsAttending")
+	Set<AttendeeUser> attendees;
 	/**
 	 * Fee of entrance to the event
 	 */
@@ -178,5 +183,21 @@ public class Event {
 	 */
 	public void setCapacity(int c) {
 		capacity = c;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Set<AttendeeUser> getAttendees() {
+		return attendees;
+	}
+
+	public void setAttendees(Set<AttendeeUser> attendees) {
+		this.attendees = attendees;
 	}
 }

@@ -3,6 +3,8 @@ package backend.gatsby;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,13 +14,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.client.HttpClientErrorException;
 
 @RestController
 public class Controller {
 
 	@Autowired
 	AttendeeDatabase db;
-
+	@Autowired
+	EventService eventService;
 	@Autowired
 	BCryptPasswordEncoder bCryptPasswordEncoder;
 	
@@ -37,6 +41,25 @@ public class Controller {
 	@PostMapping("/attendee/getid")
 	AttendeeUser getByUserName(@RequestBody AttendeeUser a){
 		return db.findByUsername(a.getUsername());
+	}
+	@PostMapping("/attendee/registerevent/{eventId}")
+	ResponseEntity registerForEvent(@PathVariable int eventId, @RequestBody AttendeeUser a){
+		AttendeeUser user = db.findByUsername(a.getUsername());
+		Event event;
+		try {
+			event = eventService.getEventById(eventId);
+		}catch(Exception e){
+			return new ResponseEntity(HttpStatus.BAD_REQUEST);
+		}
+		if(!user.eventsAttending.contains(event)) {
+			user.eventsAttending.add(event);
+			event.attendees.add(user);
+		}else{
+			return new ResponseEntity((HttpStatus.BAD_REQUEST));
+		}
+		db.save(user);
+		eventService.save(event);
+		return new ResponseEntity(user,HttpStatus.OK);
 	}
 	@PostMapping("/attendee")
 	AttendeeUser createUser(@RequestBody AttendeeUser a) {
