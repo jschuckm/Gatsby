@@ -3,6 +3,7 @@ package backend.gatsby.controllers;
 import java.util.List;
 
 import backend.gatsby.entities.Event;
+import backend.gatsby.models.EventDTO;
 import backend.gatsby.repositories.EventDatabase;
 import backend.gatsby.repositories.HostDatabase;
 import backend.gatsby.entities.HostUser;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+
+import static backend.gatsby.mappers.MapperDTO.convertListEventsToListEventDTO;
 
 @RestController
 public class ControllerEvent {
@@ -30,9 +33,9 @@ public class ControllerEvent {
 	}
 	
 	@RequestMapping("/events")
-	List<Event> getAll()
+	List<EventDTO> getAll()
 	{
-		return (List<Event>) eventDB.findAll();
+		return convertListEventsToListEventDTO(eventDB.findAll());
 	}
 	
 	@PostMapping("/event")
