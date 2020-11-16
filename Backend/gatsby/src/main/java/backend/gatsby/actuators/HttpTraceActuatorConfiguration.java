@@ -1,4 +1,4 @@
-package backend.gatsby;
+package backend.gatsby.actuators;
 
 import org.springframework.boot.actuate.trace.http.HttpTraceRepository;
 import org.springframework.boot.actuate.trace.http.InMemoryHttpTraceRepository;

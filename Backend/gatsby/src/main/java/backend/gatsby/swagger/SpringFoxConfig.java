@@ -1,4 +1,4 @@
-package backend.gatsby;
+package backend.gatsby.swagger;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

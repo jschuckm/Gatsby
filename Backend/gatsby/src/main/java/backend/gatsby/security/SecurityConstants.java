@@ -1,4 +1,4 @@
-package backend.gatsby;
+package backend.gatsby.security;
 
 public class SecurityConstants {
 

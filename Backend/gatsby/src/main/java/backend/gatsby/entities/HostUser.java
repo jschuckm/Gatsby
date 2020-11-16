@@ -1,14 +1,11 @@
-package backend.gatsby;
+package backend.gatsby.entities;
 
-import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;
 
+import backend.gatsby.entities.Event;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Table(name = "host")
 @Entity
@@ -55,10 +52,10 @@ public class HostUser {
 	 * List containing all events hosted by this user
 	 */
 	//one to many relation: one host can have multiple events, but an event only has one hosts
-	@OneToMany(cascade = CascadeType.ALL)
+	/*@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "host")
 	private Set<Event> eventsHostedHistory;
-	
+	*/
 	/**
 	 * @return name of the user
 	 */
@@ -99,7 +96,7 @@ public class HostUser {
 	 * This method has the @JsonIgone annotation to prevent infinite recursion when viewing the response of a request
 	 * @return list of events hosted
 	 */
-	@JsonIgnore
+	/*@JsonIgnore
 	public Set<Event> getEventsHostedHistory(){
 		return eventsHostedHistory;
 	}
@@ -108,9 +105,9 @@ public class HostUser {
 	 * Adds an event to the list of events of this host
 	 * @param e event to be added
 	 */
-	public void addEvent(Event e) {
-		eventsHostedHistory.add(e);
-	}
+	//public void addEvent(Event e) {
+		//eventsHostedHistory.add(e);
+	//}*/
 	
 	/**
 	 * Sets name of host

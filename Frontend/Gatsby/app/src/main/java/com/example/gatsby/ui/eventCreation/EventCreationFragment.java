@@ -127,6 +127,8 @@ public class EventCreationFragment extends Fragment {
             public void onClick(View view) {
                 RequestQueue requestQueue = Volley.newRequestQueue(root.getContext());
                 try {
+                    System.out.println("user: "+ MyApplication.getUser());
+                    System.out.println("id:" + MyApplication.getUser().getId());
                     String url ="http://coms-309-mc-07.cs.iastate.edu:8080/event/"+MyApplication.getUser().getId();
                     /*
                     String date = Date1.getText().toString();
