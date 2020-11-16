@@ -22,6 +22,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.gatsby.MyApplication;
 import com.example.gatsby.R;
+import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -138,38 +139,44 @@ public class EventViewFragment extends Fragment {
         try {
             String url ="http://coms-309-mc-07.cs.iastate.edu:8080/attendee/registerevent/"+eventId;
             JSONObject object = createReqBodyRegister();
-            JsonObjectRequest jsonArrayRequest = new JsonObjectRequest(Request.Method.POST, url, object, new Response.Listener<JSONObject>() {
-                @Override
-                public void onResponse(JSONObject first) {
-                    try {
-                        System.out.println("apply response"+first);
-                    }
-                    catch(Exception e){
-                        System.out.println(e);
-                        System.out.println("ERROR");
-                    }
-
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    System.out.println(error);
-                    System.out.println("OTHER ERROR");
-                }
-            }){
-                @Override
-                public Map<String, String> getHeaders() throws AuthFailureError {
-                    HashMap<String, String> headers = new HashMap<String, String>();
-                    System.out.println(MyApplication.getUser().getAuthToken());
-                    headers.put("Authorization", MyApplication.getUser().getAuthToken());
-
-                    return headers;
-                }};
+            JsonObjectRequest jsonArrayRequest = createApplyReqeust(url,object);
             requestQueue.add(jsonArrayRequest);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+    public JsonObjectRequest createApplyReqeust(String url, JSONObject object) {
+        JsonObjectRequest jsonArrayRequest = new JsonObjectRequest(Request.Method.POST, url, object, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject first) {
+                try {
+                    System.out.println("apply response"+first);
+                }
+                catch(Exception e){
+                    System.out.println(e);
+                    System.out.println("ERROR");
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println(error);
+                System.out.println("OTHER ERROR");
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                System.out.println(MyApplication.getUser().getAuthToken());
+                headers.put("Authorization", MyApplication.getUser().getAuthToken());
+
+                return headers;
+            }};
+        return jsonArrayRequest;
+    }
+
     /**
      * Returns JSONObject for the body of the request to the register method.
      * @return JSONObject
@@ -188,7 +195,11 @@ public class EventViewFragment extends Fragment {
             System.out.println("get applicants object "+ object);
             String name = object.get("name").toString();
             System.out.println("get applicants name "+ name);
-            result = result.concat(name);
+            if(i==0) {
+                result = result.concat(name);
+            }else{
+                result = result.concat(","+name);
+            }
             System.out.println("result "+ result);
         }
         return result;
