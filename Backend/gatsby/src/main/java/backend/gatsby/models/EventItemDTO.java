@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Set;
 
 public class EventItemDTO {
-
     Integer id;
     private String name;
     private String description;
@@ -118,5 +117,12 @@ public class EventItemDTO {
      */
     public void setCapacity(int c) {
         capacity = c;
+    }
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

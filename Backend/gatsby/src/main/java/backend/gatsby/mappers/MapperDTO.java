@@ -66,7 +66,7 @@ public class MapperDTO {
         result.setAddress(event.getAddress());
         result.setDate(event.getDate());
         result.setFee(event.getFee());
-        result.set
+        result.setId(event.getId());
         return result;
     }
     public static EventDTO convertEventToEventDTO(Event event) {
@@ -79,6 +79,7 @@ public class MapperDTO {
         result.setDate(event.getDate());
         result.setFee(event.getFee());
         result.setAttendees(convertListAttendeeUserToListAttendeeUserItemDTO(event.getAttendees()));
+        result.setId(event.getId());
         return result;
     }
     public static List<EventDTO> convertListEventsToListEventDTO(List<Event> events){
