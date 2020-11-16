@@ -16,7 +16,6 @@ public class EventItemDTO {
     private String description;
     private Date date;
     private float fee;
-    private HostUser hostProfile;
     private String address;
     private boolean isPublic;
     private int capacity;
@@ -60,21 +59,6 @@ public class EventItemDTO {
      */
     public int getCapacity() {
         return capacity;
-    }
-    /**
-     *
-     * @return user profile of the host
-     */
-    @JsonIgnore
-    public HostUser getHost() {
-        return hostProfile;
-    }
-    /**
-     * Changes the host to h
-     * @param h new host
-     */
-    public void setHost(HostUser h) {
-        hostProfile = h;
     }
     /**
      * Changes the name of the event

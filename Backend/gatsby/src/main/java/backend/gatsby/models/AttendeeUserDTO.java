@@ -13,6 +13,16 @@ public class AttendeeUserDTO {
     private String password;
     public List<EventItemDTO> eventsAttending;
 
+    public List<EventItemDTO> getEventsHosting() {
+        return eventsHosting;
+    }
+
+    public void setEventsHosting(List<EventItemDTO> eventsHosting) {
+        this.eventsHosting = eventsHosting;
+    }
+
+    public List<EventItemDTO> eventsHosting;
+
 
     /**
      * Address of User

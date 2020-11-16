@@ -22,17 +22,20 @@ public class MapperDTO {
         result.setAddress(user.getAddress());
         result.setRating(user.getRating());
         result.setEventsAttending(convertListEventsToListEventItemDTO(user.getEventsAttending()));//Convert to List<EventItemDTO>
+        result.setEventsHosting(convertListEventsToListEventItemDTO(user.eventsHosting));
         return result;
     }
     public static AttendeeUserItemDTO convertAttendeeUserToAttendeeUserItemDTO(AttendeeUser user){
         AttendeeUserItemDTO result = new AttendeeUserItemDTO();
-        result.setUsername(user.getUsername());
-        result.setAge(user.getAge());
-        result.setName(user.getName());
-        result.setEmail(user.getEmail());
-        result.setAddress(user.getAddress());
-        result.setRating(user.getRating());
-        result.setId(user.getId());
+        if(user!=null) {
+            result.setUsername(user.getUsername());
+            result.setAge(user.getAge());
+            result.setName(user.getName());
+            result.setEmail(user.getEmail());
+            result.setAddress(user.getAddress());
+            result.setRating(user.getRating());
+            result.setId(user.getId());
+        }
         return result;
     }
     public static List<AttendeeUserDTO> convertListAttendeeUserToListAttendeeUserDTO(List<AttendeeUser> users){
@@ -66,7 +69,6 @@ public class MapperDTO {
         result.setCapacity(event.getCapacity());
         result.setName(event.getName());
         result.setIsPublic(event.getIsPublic());
-        result.setHost(event.getHost());
         result.setAddress(event.getAddress());
         result.setDate(event.getDate());
         result.setFee(event.getFee());
@@ -78,12 +80,12 @@ public class MapperDTO {
         result.setCapacity(event.getCapacity());
         result.setName(event.getName());
         result.setIsPublic(event.getIsPublic());
-        result.setHost(event.getHost());
         result.setAddress(event.getAddress());
         result.setDate(event.getDate());
         result.setFee(event.getFee());
         result.setAttendees(convertListAttendeeUserToListAttendeeUserItemDTO(event.getAttendees()));
         result.setId(event.getId());
+        result.setHostUser(convertAttendeeUserToAttendeeUserItemDTO(event.getHostUser()));
         return result;
     }
     public static List<EventDTO> convertListEventsToListEventDTO(List<Event> events){
