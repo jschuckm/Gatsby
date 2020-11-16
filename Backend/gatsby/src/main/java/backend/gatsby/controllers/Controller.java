@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import static backend.gatsby.mappers.MapperDTO.convertAttendeeUserToAttendeeUserDTO;
 import static backend.gatsby.mappers.MapperDTO.convertListAttendeeUserToListAttendeeUserDTO;
 
 @RestController
@@ -34,8 +35,8 @@ public class Controller {
 	EventService eventService;
 	
 	@RequestMapping("/attendee/{id}")
-    AttendeeUser getUser(@PathVariable Integer id) {
-		AttendeeUser result = db.findById(id).get();
+    AttendeeUserDTO getUser(@PathVariable Integer id) {
+		AttendeeUserDTO result = convertAttendeeUserToAttendeeUserDTO(db.findById(id).get());
 		return result;
 	}
 	@PostMapping("/attendee/registerevent/{eventId}")
@@ -55,7 +56,7 @@ public class Controller {
 		}
 		db.save(user);
 		eventService.save(event);
-		return new ResponseEntity(user,HttpStatus.OK);
+		return new ResponseEntity(convertAttendeeUserToAttendeeUserDTO(user),HttpStatus.OK);
 	}
 
 
@@ -66,13 +67,13 @@ public class Controller {
 	}
 
 	@PostMapping("/attendee/getid")
-	AttendeeUser getByUserName(@RequestBody AttendeeUser a){
-		return db.findByUsername(a.getUsername());
+	AttendeeUserDTO getByUserName(@RequestBody AttendeeUser a){
+		return convertAttendeeUserToAttendeeUserDTO(db.findByUsername(a.getUsername()));
 	}
 	@PostMapping("/attendee")
-	AttendeeUser createUser(@RequestBody AttendeeUser a) {
+	AttendeeUserDTO createUser(@RequestBody AttendeeUser a) {
 		db.save(a);
-		return a;
+		return convertAttendeeUserToAttendeeUserDTO(a);
 	}
 	@PostMapping("/register")
 	String registerUser(@RequestBody AttendeeUser a) {
@@ -83,7 +84,7 @@ public class Controller {
 	}
 	
 	@PutMapping("/attendee/{id}")
-	AttendeeUser updateUser(@RequestBody AttendeeUser a, @PathVariable Integer id) {
+	AttendeeUserDTO updateUser(@RequestBody AttendeeUser a, @PathVariable Integer id) {
 		AttendeeUser oldA = db.findById(id).get();
 		oldA.setName(a.getName());
 		oldA.setAge(a.getAge());
@@ -92,10 +93,10 @@ public class Controller {
 		oldA.setUsername(a.getUsername());
 		oldA.setRating(a.getRating());
 		db.save(oldA);
-		return oldA;
+		return convertAttendeeUserToAttendeeUserDTO(oldA);
 	}
 	@PutMapping("/attendee")
-	AttendeeUser updateUserByUsername(@RequestBody AttendeeUser a) {
+	AttendeeUserDTO updateUserByUsername(@RequestBody AttendeeUser a) {
 		AttendeeUser oldA = db.findByUsername(a.getUsername());
 		oldA.setName(a.getName());
 		oldA.setAge(a.getAge());
@@ -104,11 +105,12 @@ public class Controller {
 		oldA.setUsername(a.getUsername());
 		oldA.setRating(a.getRating());
 		db.save(oldA);
-		return oldA;
+		return convertAttendeeUserToAttendeeUserDTO(oldA);
 	}
 	
-	AttendeeUser findOne(@PathVariable Integer id) {
-		return db.findById(id).get();
+	AttendeeUserDTO findOne(@PathVariable Integer id) {
+
+		return convertAttendeeUserToAttendeeUserDTO(db.findById(id).get());
 	}
 	
 	@DeleteMapping("/attendee/{id}")

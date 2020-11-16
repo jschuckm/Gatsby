@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import static backend.gatsby.mappers.MapperDTO.convertEventToEventDTO;
 import static backend.gatsby.mappers.MapperDTO.convertListEventsToListEventDTO;
 
 @RestController
@@ -27,8 +28,8 @@ public class ControllerEvent {
     HostDatabase hostDB;
 	
 	@RequestMapping("/event/{id}")
-    Event getEvent(@PathVariable Integer id) {
-		Event result = eventDB.findById(id).get();
+    EventDTO getEvent(@PathVariable Integer id) {
+		EventDTO result = convertEventToEventDTO(eventDB.findById(id).get());
 		return result;
 	}
 	
@@ -39,20 +40,20 @@ public class ControllerEvent {
 	}
 	
 	@PostMapping("/event")
-	Event createEvent(@RequestBody Event e) {
+	EventDTO createEvent(@RequestBody Event e) {
 		eventDB.save(e);
-		return e;
+		return convertEventToEventDTO(e);
 	}
 	
 	@PostMapping("/event/{id}/host/{idH}")
-	Event setHost(@PathVariable Integer id, @PathVariable Integer idH) {
+	EventDTO setHost(@PathVariable Integer id, @PathVariable Integer idH) {
 		Event e = eventDB.findById(id).get();
 		HostUser h = hostDB.findById(idH).get();
 		e.setHost(h);
 		h.addEvent(e);
 		hostDB.save(h);
 		eventDB.save(e);
-		return e;
+		return convertEventToEventDTO(e);
 	}
 	
 	@RequestMapping("/event/{id}/host")
@@ -62,7 +63,7 @@ public class ControllerEvent {
 	}
 	
 	@PutMapping("/event/{id}")
-	Event updateEvent(@RequestBody Event e, @PathVariable Integer id) {
+	EventDTO updateEvent(@RequestBody Event e, @PathVariable Integer id) {
 		Event oldE = eventDB.findById(id).get();
 		oldE.setName(e.getName());
 		oldE.setAddress(e.getAddress());
@@ -72,7 +73,7 @@ public class ControllerEvent {
 		oldE.setIsPublic(e.getIsPublic());
 		oldE.setHost(e.getHost());
 		eventDB.save(oldE);
-		return oldE;
+		return convertEventToEventDTO(oldE);
 	}
 	
 	@DeleteMapping("/event/{id}")

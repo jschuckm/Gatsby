@@ -14,6 +14,7 @@ import java.util.Set;
 public class MapperDTO {
     public static AttendeeUserDTO convertAttendeeUserToAttendeeUserDTO(AttendeeUser user){
         AttendeeUserDTO result = new AttendeeUserDTO();
+        result.setId(user.getId());
         result.setUsername(user.getUsername());
         result.setAge(user.getAge());
         result.setName(user.getName());
@@ -31,6 +32,7 @@ public class MapperDTO {
         result.setEmail(user.getEmail());
         result.setAddress(user.getAddress());
         result.setRating(user.getRating());
+        result.setId(user.getId());
         return result;
     }
     public static List<AttendeeUserDTO> convertListAttendeeUserToListAttendeeUserDTO(List<AttendeeUser> users){
@@ -64,6 +66,7 @@ public class MapperDTO {
         result.setAddress(event.getAddress());
         result.setDate(event.getDate());
         result.setFee(event.getFee());
+        result.set
         return result;
     }
     public static EventDTO convertEventToEventDTO(Event event) {

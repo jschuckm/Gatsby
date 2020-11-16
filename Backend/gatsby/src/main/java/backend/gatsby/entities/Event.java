@@ -12,12 +12,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "event")
 @Entity
 public class Event {
-	
+
 	/**
 	 * Unique identifier between Events
 	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
 	Integer id;
     
 	/**
@@ -187,6 +188,13 @@ public class Event {
 
 	public void setAttendees(List<AttendeeUser> attendees) {
 		this.attendees = attendees;
+	}
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 }
