@@ -1,4 +1,4 @@
-package backend.gatsby;
+package backend.gatsby.entities;
 
 import java.util.List;
 
@@ -6,20 +6,19 @@ import java.util.Date;
 
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Table(name = "event")
 @Entity
 public class Event {
-	
+
 	/**
 	 * Unique identifier between Events
 	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
 	Integer id;
     
 	/**
@@ -56,7 +55,10 @@ public class Event {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "host_id")
 	private HostUser hostProfile;
-	
+
+	@ManyToMany(mappedBy = "eventsAttending")
+	public List<AttendeeUser> attendees;
+
 	/**
 	 * Address of Event
 	 */
@@ -179,4 +181,20 @@ public class Event {
 	public void setCapacity(int c) {
 		capacity = c;
 	}
+
+	public List<AttendeeUser> getAttendees() {
+		return attendees;
+	}
+
+	public void setAttendees(List<AttendeeUser> attendees) {
+		this.attendees = attendees;
+	}
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 }

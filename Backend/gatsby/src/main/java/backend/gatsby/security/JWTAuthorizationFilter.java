@@ -1,4 +1,4 @@
-package backend.gatsby;
+package backend.gatsby.security;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import static backend.gatsby.SecurityConstants.*;
+import static backend.gatsby.security.SecurityConstants.*;
 
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 

@@ -1,14 +1,11 @@
-package backend.gatsby;
+package backend.gatsby.entities;
 
-import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;
 
+import backend.gatsby.entities.Event;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Table(name = "host")
 @Entity

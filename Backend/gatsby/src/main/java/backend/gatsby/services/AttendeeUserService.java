@@ -1,5 +1,7 @@
-package backend.gatsby;
+package backend.gatsby.services;
 
+import backend.gatsby.entities.AttendeeUser;
+import backend.gatsby.repositories.AttendeeDatabase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
