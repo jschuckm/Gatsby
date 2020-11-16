@@ -44,15 +44,19 @@ public class MapperDTO {
     }
     public static List<AttendeeUserItemDTO> convertListAttendeeUserToListAttendeeUserItemDTO(List<AttendeeUser> users){
         List<AttendeeUserItemDTO> result = new ArrayList<>();
-        for(int i = 0;i< users.size();i++){
-            result.add(convertAttendeeUserToAttendeeUserItemDTO(users.get(i)));
+        if(users!=null) {
+            for (int i = 0; i < users.size(); i++) {
+                result.add(convertAttendeeUserToAttendeeUserItemDTO(users.get(i)));
+            }
         }
         return result;
     }
     public static List<EventItemDTO> convertListEventsToListEventItemDTO(List<Event> events){
         List<EventItemDTO> result = new ArrayList<>();
-        for (int i = 0;i<events.size();i++) {
-            result.add(convertEventToEventItemDTO(events.get(i)));
+        if(events!=null) {
+            for (int i = 0; i < events.size(); i++) {
+                result.add(convertEventToEventItemDTO(events.get(i)));
+            }
         }
         return result;
     }
