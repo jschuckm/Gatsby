@@ -44,7 +44,7 @@ public class ControllerEvent {
 	List<EventDTO> getAttendeeEvents(@PathVariable int idAttendee)
 	{
 		AttendeeUser user = db.findById(idAttendee).get();
-		return convertListEventsToListEventDTO(user.getEventsHosting());
+		return convertListEventsToListEventDTO(user.getEventsAttending());
 	}
 	@RequestMapping("/events")
 	List<EventDTO> getAll()
