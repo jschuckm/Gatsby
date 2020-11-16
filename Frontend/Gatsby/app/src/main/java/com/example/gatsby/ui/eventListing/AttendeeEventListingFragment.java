@@ -85,7 +85,7 @@ public class AttendeeEventListingFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                EventViewFragment e = new EventViewFragment();
+                EventViewAttendeeFragment e = new EventViewAttendeeFragment();
                 Bundle bundle = new Bundle();
                 bundle.putString("key",""+ (event1ID) );
                 e.setArguments(bundle);
@@ -99,7 +99,7 @@ public class AttendeeEventListingFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                EventViewFragment e = new EventViewFragment();
+                EventViewAttendeeFragment e = new EventViewAttendeeFragment();
                 Bundle bundle = new Bundle();
                 bundle.putString("key",""+ (event2ID) );
                 e.setArguments(bundle);
@@ -113,7 +113,7 @@ public class AttendeeEventListingFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                EventViewFragment e = new EventViewFragment();
+                EventViewAttendeeFragment e = new EventViewAttendeeFragment();
                 Bundle bundle = new Bundle();
                 bundle.putString("key",""+ (event3ID) );
                 e.setArguments(bundle);
@@ -127,7 +127,7 @@ public class AttendeeEventListingFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                EventViewFragment e = new EventViewFragment();
+                EventViewAttendeeFragment e = new EventViewAttendeeFragment();
                 Bundle bundle = new Bundle();
                 bundle.putString("key",""+ (event4ID) );
                 e.setArguments(bundle);
