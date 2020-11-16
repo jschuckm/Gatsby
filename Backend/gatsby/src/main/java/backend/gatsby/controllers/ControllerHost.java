@@ -41,7 +41,7 @@ public class ControllerHost {
 		hostDB.save(h);
 		return h;
 	}
-	@PostMapping("/host/{id}/events/{idE}")
+	/*@PostMapping("/host/{id}/events/{idE}")
 	HostUser addEvent(@PathVariable Integer id, @PathVariable Integer idE) {
 		Event e = eventDB.findById(idE).get();
 		HostUser h = hostDB.findById(id).get();
@@ -50,13 +50,13 @@ public class ControllerHost {
 		eventDB.save(e);
 		hostDB.save(h);
 		return h;
-	}
-	
+	}*/
+	/*
 	@RequestMapping("/host/{id}/events")
 	Set<Event> getHostEvents(@PathVariable Integer id) {
 		Set<Event> e = hostDB.findById(id).get().getEventsHostedHistory();
 		return e;
-	}
+	}*/
 	
 	@PutMapping("/host/{id}")
 	HostUser updateUser(@RequestBody HostUser h, @PathVariable Integer id) {

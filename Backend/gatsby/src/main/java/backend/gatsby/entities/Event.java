@@ -48,13 +48,13 @@ public class Event {
 	 */
 	@Column
 	private float fee;
-	
+
 	/**
 	 * Host of Event
 	 */
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "host_id")
-	private HostUser hostProfile;
+	@JoinColumn(name = "attendee_id")
+	private AttendeeUser hostUser;
 
 	@ManyToMany(mappedBy = "eventsAttending")
 	public List<AttendeeUser> attendees;
@@ -119,14 +119,6 @@ public class Event {
 	}
 	/**
 	 * 
-	 * @return user profile of the host
-	 */
-	@JsonIgnore
-	public HostUser getHost() {
-		return hostProfile;
-	}
-	/**
-	 * 
 	 * @return list of attendees that have applied to go to the event
 	 */
 	public List<String> getApplicants(){
@@ -136,8 +128,8 @@ public class Event {
 	 * Changes the host to h
 	 * @param h new host
 	 */
-	public void setHost(HostUser h) {
-		hostProfile = h;
+	public void setHost(AttendeeUser h) {
+		hostUser = h;
 	}
 	/**
 	 * Changes the name of the event
@@ -195,6 +187,9 @@ public class Event {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	public AttendeeUser getHostUser() {
+		return hostUser;
 	}
 
 }

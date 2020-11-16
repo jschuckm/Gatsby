@@ -2,8 +2,10 @@ package backend.gatsby.controllers;
 
 import java.util.List;
 
+import backend.gatsby.entities.AttendeeUser;
 import backend.gatsby.entities.Event;
 import backend.gatsby.models.EventDTO;
+import backend.gatsby.repositories.AttendeeDatabase;
 import backend.gatsby.repositories.EventDatabase;
 import backend.gatsby.repositories.HostDatabase;
 import backend.gatsby.entities.HostUser;
@@ -25,7 +27,7 @@ public class ControllerEvent {
     EventDatabase eventDB;
 	
 	@Autowired
-    HostDatabase hostDB;
+	AttendeeDatabase db;
 	
 	@RequestMapping("/event/{id}")
     EventDTO getEvent(@PathVariable Integer id) {
@@ -44,21 +46,29 @@ public class ControllerEvent {
 		eventDB.save(e);
 		return convertEventToEventDTO(e);
 	}
+	@PostMapping("/event/{idHost}")
+	EventDTO createEvent(@PathVariable Integer idHost,@RequestBody Event e){
+		AttendeeUser host = db.findById(idHost).get();
+		System.out.println(host);
+		e.setHost(host);
+		eventDB.save(e);
+		return convertEventToEventDTO(e);
+	}
 	
 	@PostMapping("/event/{id}/host/{idH}")
 	EventDTO setHost(@PathVariable Integer id, @PathVariable Integer idH) {
 		Event e = eventDB.findById(id).get();
-		HostUser h = hostDB.findById(idH).get();
+		AttendeeUser h = e.getHostUser();
 		e.setHost(h);
-		h.addEvent(e);
-		hostDB.save(h);
+		h.getEventsHosting().add(e);
+		db.save(h);
 		eventDB.save(e);
 		return convertEventToEventDTO(e);
 	}
 	
 	@RequestMapping("/event/{id}/host")
-	HostUser getEventHost(@PathVariable Integer id) {
-		HostUser h = eventDB.findById(id).get().getHost();
+	AttendeeUser getEventHost(@PathVariable Integer id) {
+		AttendeeUser h = eventDB.findById(id).get().getHostUser();
 		return h;
 	}
 	
@@ -71,7 +81,7 @@ public class ControllerEvent {
 		oldE.setDate(e.getDate());
 		oldE.setFee(e.getFee());
 		oldE.setIsPublic(e.getIsPublic());
-		oldE.setHost(e.getHost());
+		oldE.setHost(e.getHostUser());
 		eventDB.save(oldE);
 		return convertEventToEventDTO(oldE);
 	}

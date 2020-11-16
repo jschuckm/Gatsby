@@ -52,7 +52,8 @@ public class AttendeeUser {
 			inverseJoinColumns = @JoinColumn(name = "id"))
 	public List<Event> eventsAttending;
 
-
+	@OneToMany(mappedBy = "hostUser")
+	public List<Event> eventsHosting;
 	/**
 	 * Address of User
 	 */
@@ -179,5 +180,13 @@ public class AttendeeUser {
 
 	public void setEventsAttending(List<Event> eventsAttending) {
 		this.eventsAttending = eventsAttending;
+	}
+
+	public List<Event> getEventsHosting() {
+		return eventsHosting;
+	}
+
+	public void setEventsHosting(List<Event> eventsHosting) {
+		this.eventsHosting = eventsHosting;
 	}
 }
