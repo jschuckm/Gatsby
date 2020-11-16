@@ -4,6 +4,7 @@ import java.util.List;
 
 import backend.gatsby.entities.AttendeeUser;
 import backend.gatsby.entities.Event;
+import backend.gatsby.models.AttendeeUserDTO;
 import backend.gatsby.models.EventDTO;
 import backend.gatsby.repositories.AttendeeDatabase;
 import backend.gatsby.repositories.EventDatabase;
@@ -18,8 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import static backend.gatsby.mappers.MapperDTO.convertEventToEventDTO;
-import static backend.gatsby.mappers.MapperDTO.convertListEventsToListEventDTO;
+import static backend.gatsby.mappers.MapperDTO.*;
 
 @RestController
 public class ControllerEvent {
@@ -34,7 +34,18 @@ public class ControllerEvent {
 		EventDTO result = convertEventToEventDTO(eventDB.findById(id).get());
 		return result;
 	}
-	
+	@RequestMapping("/events/host/{idHost}")
+	List<EventDTO> getHostEvents(@PathVariable int idHost)
+	{
+		AttendeeUser user = db.findById(idHost).get();
+		return convertListEventsToListEventDTO(user.getEventsHosting());
+	}
+	@RequestMapping("/events/attendee/{idAttendee}")
+	List<EventDTO> getAttendeeEvents(@PathVariable int idAttendee)
+	{
+		AttendeeUser user = db.findById(idAttendee).get();
+		return convertListEventsToListEventDTO(user.getEventsHosting());
+	}
 	@RequestMapping("/events")
 	List<EventDTO> getAll()
 	{
