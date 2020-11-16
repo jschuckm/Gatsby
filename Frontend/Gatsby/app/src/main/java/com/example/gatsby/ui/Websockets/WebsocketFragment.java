@@ -13,7 +13,9 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 
+import com.example.gatsby.MyApplication;
 import com.example.gatsby.R;
+import com.example.gatsby.data.model.LoggedInUser;
 
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
@@ -26,7 +28,7 @@ import org.java_websocket.handshake.ServerHandshake;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-
+import java.util.Calendar;
 
 
 public class WebsocketFragment extends Fragment {
@@ -97,7 +99,9 @@ public class WebsocketFragment extends Fragment {
              * To test the clientside without the backend, simply connect to an echo server such as:
              *  "ws://echo.websocket.org"
              */
-            uri = new URI("ws://echo.websocket.org"); // 10.0.2.2 = localhost
+
+            String name = MyApplication.getUser().getDisplayName();
+            uri = new URI("ws://coms-309-mc-07.cs.iastate.edu:8080/websocket/" + name); // 10.0.2.2 = localhost
             // uri = new URI("ws://echo.websocket.org");
         } catch (URISyntaxException e) {
             e.printStackTrace();

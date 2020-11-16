@@ -61,6 +61,7 @@ public class MockitoTests {
         assertEquals("5.0", sum);
     }
 
+
     @Test
     public void testParseUser() throws JSONException {
         EventListingFragment event = new EventListingFragment();
@@ -100,7 +101,43 @@ public class MockitoTests {
 
         assertEquals("poolpartyAmes31true",sum);
     }
+    
+    @Test
+    public void testingParseFee() throws JSONException {
+        EventListingFragment event = new EventListingFragment();
+
+        when(mockJSON.getDouble("fee")).thenReturn(31.1);
+        when(mockSecond.getDouble("fee")).thenReturn(52.0);
+        when(mockThird.getDouble("fee")).thenReturn(1.5);
+        when(mockFourth.getDouble("fee")).thenReturn(0.4989);
 
 
+        String sum = "" + (float) event.parseFee(mockJSON,mockSecond,mockThird,mockFourth);
+        String test = "" +sum;
+
+
+        assertEquals("85.0989", sum);
+    }
+
+
+    @Test
+    public void testingParseUser() throws JSONException {
+        EventListingFragment event = new EventListingFragment();
+
+        when(mockJSON.getString("age")).thenReturn("34");
+        when(mockJSON.getString("name")).thenReturn("Jared");
+        when(mockJSON.getString("address")).thenReturn("Ames");
+        when(mockJSON.getString("email")).thenReturn("cmantas@iastate.edu");
+        when(mockJSON.getString("rating")).thenReturn("5");
+
+
+
+
+        String sum = event.parseUser(mockJSON);
+
+        System.out.println(sum);
+
+        assertEquals("34JaredAmescmantas@iastate.edu5",sum);
+    }
 
 }
