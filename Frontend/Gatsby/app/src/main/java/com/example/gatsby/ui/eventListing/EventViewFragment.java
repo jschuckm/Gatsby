@@ -24,16 +24,18 @@ import com.example.gatsby.MyApplication;
 import com.example.gatsby.R;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import static java.lang.Integer.parseInt;
+
 public class EventViewFragment extends Fragment {
     private EventViewModel eventViewModel;
-
+    int eventId;
     String j = "0";
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         eventViewModel =
@@ -44,7 +46,7 @@ public class EventViewFragment extends Fragment {
              j = bundle.getString("key");
         }
 
-        final Integer i = Integer.parseInt(j);
+        final Integer i = parseInt(j);
 
         final TextView EventName = (TextView) root.findViewById(R.id.EventName);
         final TextView size = (TextView) root.findViewById(R.id.size);
@@ -68,6 +70,13 @@ public class EventViewFragment extends Fragment {
 
             }
         });
+        Apply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendApplyRequest(eventId, view);
+
+            }
+        });
         RequestQueue requestQueue = Volley.newRequestQueue(root.getContext());
                 try {
                     String url ="http://coms-309-mc-07.cs.iastate.edu:8080/event/"+i;
@@ -84,10 +93,10 @@ public class EventViewFragment extends Fragment {
                                 else{
                                     pub = "Private";
                                 }
-
+                                eventId = parseInt(first.get("id").toString());
                                 EventName.setText(first.get("name").toString());
                                 size.setText(first.get("capacity").toString());
-                               // applicants.setText(first.get("applicants").toString());
+                               applicants.setText(getApplicantsString(first));
                                 fee.setText(first.get("fee").toString());
                                 location2.setText(first.get("address").toString());
                                 hostname.setText(pub);
@@ -124,5 +133,65 @@ public class EventViewFragment extends Fragment {
         return root;
     }
 
+    private void sendApplyRequest(int eventId, View root) {
+        RequestQueue requestQueue = Volley.newRequestQueue(root.getContext());
+        try {
+            String url ="http://coms-309-mc-07.cs.iastate.edu:8080/attendee/registerevent/"+eventId;
+            JSONObject object = createReqBodyRegister();
+            JsonObjectRequest jsonArrayRequest = new JsonObjectRequest(Request.Method.POST, url, object, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject first) {
+                    try {
+                        System.out.println("apply response"+first);
+                    }
+                    catch(Exception e){
+                        System.out.println(e);
+                        System.out.println("ERROR");
+                    }
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    System.out.println(error);
+                    System.out.println("OTHER ERROR");
+                }
+            }){
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    HashMap<String, String> headers = new HashMap<String, String>();
+                    System.out.println(MyApplication.getUser().getAuthToken());
+                    headers.put("Authorization", MyApplication.getUser().getAuthToken());
+
+                    return headers;
+                }};
+            requestQueue.add(jsonArrayRequest);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    /**
+     * Returns JSONObject for the body of the request to the register method.
+     * @return JSONObject
+     * @throws JSONException
+     */
+    public JSONObject createReqBodyRegister() throws JSONException {
+        return new JSONObject("{\"username\":"+MyApplication.getUser().getDisplayName()+"}");
+    }
+
+    public String getApplicantsString(JSONObject input) throws JSONException {
+        JSONArray array = new JSONArray(input.get("attendees").toString());
+        System.out.println("getApplicants "+array);
+        String result = "";
+        for(int i = 0;i<array.length();i++){
+            JSONObject object = new JSONObject(array.get(i).toString());
+            System.out.println("get applicants object "+ object);
+            String name = object.get("name").toString();
+            System.out.println("get applicants name "+ name);
+            result = result.concat(name);
+            System.out.println("result "+ result);
+        }
+        return result;
+    }
 
 }
