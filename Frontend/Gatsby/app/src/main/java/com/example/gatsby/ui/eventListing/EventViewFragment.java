@@ -18,6 +18,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.gatsby.MyApplication;
 import com.example.gatsby.R;
@@ -69,15 +70,13 @@ public class EventViewFragment extends Fragment {
         });
         RequestQueue requestQueue = Volley.newRequestQueue(root.getContext());
                 try {
-                    String url ="http://coms-309-mc-07.cs.iastate.edu:8080/events";
+                    String url ="http://coms-309-mc-07.cs.iastate.edu:8080/event/"+i;
                     JSONObject object = new JSONObject();
-                    JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+                    JsonObjectRequest jsonArrayRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
                         @Override
-                        public void onResponse(JSONArray response) {
+                        public void onResponse(JSONObject first) {
                             try {
-                                JSONArray jsonArray = new JSONArray(response.toString());
 
-                                JSONObject first = jsonArray.getJSONObject(i);
                                 String pub = "";
                                 if(first.get("isPublic").toString().equals("true")){
                                     pub = "Public";

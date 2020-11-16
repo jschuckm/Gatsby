@@ -28,6 +28,8 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import static java.lang.Integer.parseInt;
+
 public class EventListingFragment extends Fragment {
 
     private EventListingModel eventListingModel;
@@ -38,6 +40,11 @@ public class EventListingFragment extends Fragment {
     private float Host2;
     private float Host3;
     private float Host4;
+
+     Integer event1ID ;
+     Integer event2ID ;
+     Integer event3ID ;
+     Integer event4ID ;
 
     private String Event1;
     private String Event2;
@@ -64,6 +71,8 @@ public class EventListingFragment extends Fragment {
         final TextView Event3 = (TextView) root.findViewById(R.id.Event3);
         final TextView Event4 = (TextView) root.findViewById(R.id.Event4);
 
+
+
         RequestQueue requestQueue = Volley.newRequestQueue(root.getContext());
 
         Button Next = (Button) root.findViewById(R.id.Next);
@@ -79,7 +88,7 @@ public class EventListingFragment extends Fragment {
 
                 EventViewFragment e = new EventViewFragment();
                 Bundle bundle = new Bundle();
-                bundle.putString("key",""+ (i-4) );
+                bundle.putString("key",""+ (event1ID) );
                 e.setArguments(bundle);
                 FragmentManager manager = getFragmentManager();
                 manager.beginTransaction().replace(R.id.nav_host_fragment, e).commit();
@@ -93,7 +102,7 @@ public class EventListingFragment extends Fragment {
 
                 EventViewFragment e = new EventViewFragment();
                 Bundle bundle = new Bundle();
-                bundle.putString("key",""+ (i-3) );
+                bundle.putString("key",""+ (event2ID) );
                 e.setArguments(bundle);
                 FragmentManager manager = getFragmentManager();
                 manager.beginTransaction().replace(R.id.nav_host_fragment, e).commit();
@@ -107,7 +116,7 @@ public class EventListingFragment extends Fragment {
 
                 EventViewFragment e = new EventViewFragment();
                 Bundle bundle = new Bundle();
-                bundle.putString("key",""+ (i-2) );
+                bundle.putString("key",""+ (event3ID) );
                 e.setArguments(bundle);
                 FragmentManager manager = getFragmentManager();
                 manager.beginTransaction().replace(R.id.nav_host_fragment, e).commit();
@@ -121,7 +130,7 @@ public class EventListingFragment extends Fragment {
 
                 EventViewFragment e = new EventViewFragment();
                 Bundle bundle = new Bundle();
-                bundle.putString("key",""+ (i-1) );
+                bundle.putString("key",""+ (event4ID) );
                 e.setArguments(bundle);
                 FragmentManager manager = getFragmentManager();
                 manager.beginTransaction().replace(R.id.nav_host_fragment, e).commit();
@@ -162,6 +171,12 @@ public class EventListingFragment extends Fragment {
 
                                 Host4.setText(fourth.get("fee").toString());
                                 Event4.setText(fourth.get("name").toString());
+
+                                event1ID = parseInt(first.get("id").toString());
+                                event2ID = parseInt(second.get("id").toString());
+                                event3ID = parseInt(third.get("id").toString());
+                                event4ID = parseInt(fourth.get("id").toString());
+
 
                             }
                             catch(Exception e){

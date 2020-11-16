@@ -28,6 +28,8 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import static java.lang.Integer.parseInt;
+
 public class HostEventListingFragment extends Fragment {
 
     private EventListingModel eventListingModel;
@@ -38,6 +40,11 @@ public class HostEventListingFragment extends Fragment {
     private float Host2;
     private float Host3;
     private float Host4;
+
+    Integer event1ID ;
+    Integer event2ID ;
+    Integer event3ID ;
+    Integer event4ID ;
 
     private String Event1;
     private String Event2;
@@ -64,6 +71,8 @@ public class HostEventListingFragment extends Fragment {
         final TextView Event3 = (TextView) root.findViewById(R.id.Event3);
         final TextView Event4 = (TextView) root.findViewById(R.id.Event4);
 
+
+
         RequestQueue requestQueue = Volley.newRequestQueue(root.getContext());
 
         Button Next = (Button) root.findViewById(R.id.Next);
@@ -79,7 +88,7 @@ public class HostEventListingFragment extends Fragment {
 
                 EventViewFragment e = new EventViewFragment();
                 Bundle bundle = new Bundle();
-                bundle.putString("key",""+ (i-4) );
+                bundle.putString("key",""+ (event1ID) );
                 e.setArguments(bundle);
                 FragmentManager manager = getFragmentManager();
                 manager.beginTransaction().replace(R.id.nav_host_fragment, e).commit();
@@ -93,7 +102,7 @@ public class HostEventListingFragment extends Fragment {
 
                 EventViewFragment e = new EventViewFragment();
                 Bundle bundle = new Bundle();
-                bundle.putString("key",""+ (i-3) );
+                bundle.putString("key",""+ (event2ID) );
                 e.setArguments(bundle);
                 FragmentManager manager = getFragmentManager();
                 manager.beginTransaction().replace(R.id.nav_host_fragment, e).commit();
@@ -107,7 +116,7 @@ public class HostEventListingFragment extends Fragment {
 
                 EventViewFragment e = new EventViewFragment();
                 Bundle bundle = new Bundle();
-                bundle.putString("key",""+ (i-2) );
+                bundle.putString("key",""+ (event3ID) );
                 e.setArguments(bundle);
                 FragmentManager manager = getFragmentManager();
                 manager.beginTransaction().replace(R.id.nav_host_fragment, e).commit();
@@ -121,7 +130,7 @@ public class HostEventListingFragment extends Fragment {
 
                 EventViewFragment e = new EventViewFragment();
                 Bundle bundle = new Bundle();
-                bundle.putString("key",""+ (i-1) );
+                bundle.putString("key",""+ (event4ID) );
                 e.setArguments(bundle);
                 FragmentManager manager = getFragmentManager();
                 manager.beginTransaction().replace(R.id.nav_host_fragment, e).commit();
@@ -134,7 +143,7 @@ public class HostEventListingFragment extends Fragment {
             public void onClick(View view) {
                 RequestQueue requestQueue = Volley.newRequestQueue(root.getContext());
                 try {
-                    String url ="http://coms-309-mc-07.cs.iastate.edu:8080/events";
+                    String url ="http://coms-309-mc-07.cs.iastate.edu:8080/events/host/"+MyApplication.getUser().getId();
                     JSONObject object = new JSONObject();
                     JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
                         @Override
@@ -163,6 +172,12 @@ public class HostEventListingFragment extends Fragment {
                                 Host4.setText(fourth.get("fee").toString());
                                 Event4.setText(fourth.get("name").toString());
 
+                                event1ID = parseInt(first.get("id").toString());
+                                event2ID = parseInt(second.get("id").toString());
+                                event3ID = parseInt(third.get("id").toString());
+                                event4ID = parseInt(fourth.get("id").toString());
+
+
                             }
                             catch(Exception e){
                                 System.out.println(e);
@@ -190,7 +205,7 @@ public class HostEventListingFragment extends Fragment {
                     e.printStackTrace();
                 }
             }
-            });
+        });
 
         Next.performClick();
 
@@ -198,23 +213,23 @@ public class HostEventListingFragment extends Fragment {
     }
 
     public String parseJson(JSONObject first, JSONObject second, JSONObject third, JSONObject fourth){
-       try {
+        try {
 
-           Event1 = (first.getString("name"));
-
-
-           Event2 = (second.getString("name"));
+            Event1 = (first.getString("name"));
 
 
-           Event3 = (third.getString("name"));
+            Event2 = (second.getString("name"));
 
 
-           Event4 = (fourth.getString("name"));
-       }
-       catch(Exception e){
-           System.out.println(e);
-           System.out.println("ERROR");
-       }
+            Event3 = (third.getString("name"));
+
+
+            Event4 = (fourth.getString("name"));
+        }
+        catch(Exception e){
+            System.out.println(e);
+            System.out.println("ERROR");
+        }
 
         return Event1+Event2+Event3+Event4;
     }
@@ -288,5 +303,4 @@ public class HostEventListingFragment extends Fragment {
 
         return eventName+eventLocation+capacity+fee+isPublic;
     }
-
 }
