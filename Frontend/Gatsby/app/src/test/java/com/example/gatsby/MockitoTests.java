@@ -101,7 +101,7 @@ public class MockitoTests {
 
         assertEquals("poolpartyAmes31true",sum);
     }
-    
+
     @Test
     public void testingParseFee() throws JSONException {
         EventListingFragment event = new EventListingFragment();

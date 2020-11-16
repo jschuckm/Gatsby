@@ -19,9 +19,15 @@
             android:title = "User Info" />
 
         <item
+            android:id="@+id/nav_host_event_listing"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Host Listing" />
+
+        <item
             android:id="@+id/nav_websocket"
             android:icon="@drawable/ic_menu_gallery"
             android:title = "Websocket" />
+
 
     </group>
 </menu>

@@ -47,7 +47,7 @@ public class EventViewFragment extends Fragment {
 
         final TextView EventName = (TextView) root.findViewById(R.id.EventName);
         final TextView size = (TextView) root.findViewById(R.id.size);
-        final TextView date = (TextView) root.findViewById(R.id.date);
+        final TextView applicants = (TextView) root.findViewById(R.id.applicants);
         final TextView fee = (TextView) root.findViewById(R.id.fee);
 
         final TextView location2 = (TextView) root.findViewById(R.id.location2);
@@ -88,7 +88,7 @@ public class EventViewFragment extends Fragment {
 
                                 EventName.setText(first.get("name").toString());
                                 size.setText(first.get("capacity").toString());
-                                date.setText(first.get("date").toString());
+                               // applicants.setText(first.get("applicants").toString());
                                 fee.setText(first.get("fee").toString());
                                 location2.setText(first.get("address").toString());
                                 hostname.setText(pub);
