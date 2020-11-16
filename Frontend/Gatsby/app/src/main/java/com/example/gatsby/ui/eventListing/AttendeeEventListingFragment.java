@@ -149,32 +149,52 @@ public class AttendeeEventListingFragment extends Fragment {
                         public void onResponse(JSONArray response) {
                             try {
                                 JSONArray jsonArray = new JSONArray(response.toString());
-
-                                JSONObject first = jsonArray.getJSONObject(i);
+                                if(i<jsonArray.length()) {
+                                    JSONObject first = jsonArray.getJSONObject(i);
+                                    Host1.setText(first.get("fee").toString());
+                                    Event1.setText(first.get("name").toString());
+                                    event1ID = parseInt(first.get("id").toString());
+                                }else{
+                                    Host1.setText("");
+                                    Event1.setText("");
+                                    event1ID = null;
+                                }
                                 i++;
-                                JSONObject second = jsonArray.getJSONObject(i);
+                                if(i<jsonArray.length()) {
+                                    JSONObject second = jsonArray.getJSONObject(i);
+                                    Host2.setText(second.get("fee").toString());
+                                    Event2.setText(second.get("name").toString());
+                                    event2ID = parseInt(second.get("id").toString());
+                                }else{
+                                    Host2.setText("");
+                                    Event2.setText("");
+                                    event2ID = null;
+                                }
                                 i++;
-                                JSONObject third = jsonArray.getJSONObject(i);
+                                if(i<jsonArray.length()) {
+                                    JSONObject third = jsonArray.getJSONObject(i);
+                                    Host3.setText(third.get("fee").toString());
+                                    Event3.setText(third.get("name").toString());
+                                    event3ID = parseInt(third.get("id").toString());
+
+                                }else{
+                                    Host3.setText("");
+                                    Event3.setText("");
+                                    event3ID = null;
+                                }
                                 i++;
-                                JSONObject fourth = jsonArray.getJSONObject(i);
+                                if(i<jsonArray.length()) {
+                                    JSONObject fourth = jsonArray.getJSONObject(i);
+                                    Host4.setText(fourth.get("fee").toString());
+                                    Event4.setText(fourth.get("name").toString());
+                                    event4ID = parseInt(fourth.get("id").toString());
+                                }else{
+                                    Host4.setText("");
+                                    Event4.setText("");
+                                    event4ID = null;
+                                }
                                 i++;
 
-                                Host1.setText(first.get("fee").toString());
-                                Event1.setText(first.get("name").toString());
-
-                                Host2.setText(second.get("fee").toString());
-                                Event2.setText(second.get("name").toString());
-
-                                Host3.setText(third.get("fee").toString());
-                                Event3.setText(third.get("name").toString());
-
-                                Host4.setText(fourth.get("fee").toString());
-                                Event4.setText(fourth.get("name").toString());
-
-                                event1ID = parseInt(first.get("id").toString());
-                                event2ID = parseInt(second.get("id").toString());
-                                event3ID = parseInt(third.get("id").toString());
-                                event4ID = parseInt(fourth.get("id").toString());
 
 
                             }
